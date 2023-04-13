@@ -33,6 +33,7 @@ player_image = pygame.image.load('animations/player/idle/idle-1.png')
 player_arm_image = pygame.image.load('animations/arm/idle/idle-1.png').convert()
 player_arm_image.set_colorkey((0,0,0))
 player_y_velocity = 0
+player_arm_gravity = 0
 air_timer = 0
 true_scroll = [-150, -100]
 
@@ -59,7 +60,7 @@ class Player:
     def __init__(self, entity):
         self.velocity = [0, 0]
         self.entity = entity
-        self.arm = e.entity(entity.x + 3, entity.y + 15, player_arm_image.get_height()/2, player_arm_image.get_width()/2, "arm")
+        self.arm = e.entity(entity.x + 3, entity.y + 15, 4, 4, "arm")
         self.arm_flip = False
         self.arm_angle = 0
         self.arm_velocity = [0, 0]
@@ -69,7 +70,7 @@ class Player:
         self.charge_timer = 100
     
     def reset_arm(self):
-        self.arm = e.entity(self.entity.x + 3, self.entity.y + 15, player_arm_image.get_height()/2, player_arm_image.get_width()/2, "arm")
+        self.arm = e.entity(self.entity.x + 3, self.entity.y + 15, 4, 4, "arm")
         self.arm_flip = False
         self.arm_angle = 0
         self.arm_velocity = [0, 0]
@@ -77,30 +78,41 @@ class Player:
         self.is_arm_stuck = False
         self.charge = 0
     
-    def arm_tile_collisions(self, tiles):
-        if (self.arm_velocity[0] < 0):
-            player.arm.obj.rect.x = int(player.arm.x - (player.arm.size_x / 2))
-        if (self.arm_velocity[0] > 0):
-            player.arm.obj.rect.x = int(player.arm.x + (player.arm.size_x / 2))    
-        player.arm.obj.rect.y = int(player.arm.y)
-
+    def move_arm(self, tiles):
+        player.arm.x -= player.arm_velocity[0]
+        player.arm.obj.rect.x = round(player.arm.x)
         block_collisions = e.collision_test(self.arm.obj.rect, tiles)
         for block in block_collisions:
-            if (block.x > self.arm.x and self.arm_velocity[0] < 0):
-                self.arm.x = block.left - self.arm.size_x
+            if (self.arm_velocity[0] < 0):
+                self.arm.x = block.left - 8
+                self.arm.y = block.top + 8
+                self.arm.obj.rect.x = self.arm.x - self.arm.size_x / 2
+                self.arm.obj.rect.y = self.arm.y
                 return Collision.RIGHT
-            elif (block.x < self.arm.x and self.arm_velocity[0] > 0):
-                self.arm.x = block.right + self.arm.size_x
+            elif (self.arm_velocity[0] > 0):
+                self.arm.x = block.right + 8
+                self.arm.y = block.top + 8
+                self.arm.obj.rect.x = self.arm.x - self.arm.size_x / 2
+                self.arm.obj.rect.y = self.arm.y
                 return Collision.LEFT
-            elif (block.y < self.entity.y):
-                self.arm.y = block.bottom + self.arm.size_x
-                self.arm.obj.rect.y = block.bottom + self.arm.size_x
-                return Collision.TOP
-            elif (block.y >= self.entity.y + self.entity.size_y):
-                self.arm.y = block.top - self.arm.size_x
-                self.arm.obj.rect.y = block.top - self.arm.size_x
-                return Collision.BOTTOM
             
+        player.arm.y += player.arm_velocity[1]
+        player.arm.obj.rect.y = round(player.arm.y)
+        block_collisions = e.collision_test(self.arm.obj.rect, tiles)
+        for block in block_collisions:
+            if (self.arm_velocity[1] < 0):
+                self.arm.y = block.bottom + self.arm.size_x / 2
+                self.arm.x = block.left + 8
+                self.arm.obj.rect.x = self.arm.x
+                self.arm.obj.rect.y = self.arm.y
+                return Collision.TOP
+            elif (self.arm_velocity[1] > 0):
+                self.arm.y = block.top - self.arm.size_x / 2
+                self.arm.x = block.left + 8
+                self.arm.obj.rect.x = self.arm.x
+                self.arm.obj.rect.y = self.arm.y
+                return Collision.BOTTOM
+        
         return Collision.NONE
     
 
@@ -116,7 +128,6 @@ while True:
     scroll[1] = int(scroll[1])
     tile_rects = []
 
-    # needs to account for scroll
     mx, my = ((pygame.mouse.get_pos()[0] - 150 + scroll[0]),(pygame.mouse.get_pos()[1] - 100 + scroll[1]))
 
     load_map(tile_rects, scroll)
@@ -173,6 +184,8 @@ while True:
             if event.key == K_UP:
                 if air_timer < 6:
                     player_y_velocity = -5
+            if event.key == K_r:
+                player.reset_arm()
         if event.type == KEYUP:
             if event.key == K_RIGHT:
                 moving_right = False
@@ -206,19 +219,24 @@ while True:
         player_pos_dif = (player.entity.x - player_pos_before[0], player.entity.y - player_pos_before[1])
         player.arm.x += player_pos_dif[0]
         player.arm.y += player_pos_dif[1]
+        player.arm.obj.rect.x += player_pos_dif[0]
+        player.arm.obj.rect.y = player.arm.y
         if (player.arm_flip != player.entity.flip):
             player.arm_flip = player.entity.flip
             if (player.entity.flip == True):
                 player.arm.x += 9
+                player.arm.obj.rect.x = player.arm.x - player.arm.size_x
             elif (player.entity.flip == False):
                 player.arm.x -= 9
-        player.arm.obj.x = player.arm.x
-        player.arm.obj.y = player.arm.y
+                player.arm.obj.rect.x = player.arm.x
+
     elif (player.is_arm_detached and player.is_arm_stuck == False):
-        player.arm.x -= player.arm_velocity[0] 
-        player.arm.y += player.arm_velocity[1] 
-        
-        arm_tiles_collision = player.arm_tile_collisions(tile_rects)
+        arm_tiles_collision = player.move_arm(tile_rects)
+        player.arm_velocity[1] += player_arm_gravity
+        player_arm_gravity += 0.005
+        if (player_arm_gravity > 0.1):
+            player_arm_gravity = 0.1
+
         if (arm_tiles_collision != Collision.NONE):
             player.is_arm_detached = False
             player.is_arm_stuck = True
@@ -237,6 +255,7 @@ while True:
                 
             player.arm_velocity[0] = 0
             player.arm_velocity[1] = 0
+            player_arm_gravity = 0
     else:
         player_arm_collision = player.entity.obj.rect.colliderect(player.arm.obj.rect)
         if (player_arm_collision):
@@ -255,10 +274,10 @@ while True:
     player.entity.change_frame(1)
     player.entity.display(display, scroll)
     player_arm_image_copy = pygame.transform.rotate(player_arm_image, player.arm_angle)
-    player_arm_image_loc = [player.arm.x - int(player_arm_image_copy.get_width() / 2), player.arm.y - int(player_arm_image_copy.get_height() / 2)]
+    player_arm_image_loc = [round(player.arm.x) - int(player_arm_image_copy.get_width() / 2), player.arm.y - int(player_arm_image_copy.get_height() / 2)]
     display.blit(pygame.transform.flip(player_arm_image_copy, player.arm_flip, False), (player_arm_image_loc[0]- scroll[0], player_arm_image_loc[1] - scroll[1]))
 
-    ### ARM HITBOX
+    ## ARM HITBOX
     # arm_rect = player.arm.obj.rect.copy()
     # arm_rect.x = player.arm.obj.rect.x - scroll[0]
     # arm_rect.y = player.arm.obj.rect.y - scroll[1]
