@@ -53,9 +53,7 @@ while True:
 
     mouse_angle = cursor.get_mouse_angle_rad(map.scroll, (player.arm.x, player.arm.y))
 
-    arm_display_angle = mouse_angle - (math.pi/2)
-
-    player.update_arm_state(arm_display_angle)
+    player.update_arm_state(mouse_angle)
 
     player.handle_charging_throw(display, map.scroll, controls.is_charging_throw, mouse_angle)
         

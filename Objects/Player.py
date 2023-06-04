@@ -89,10 +89,11 @@ class Player:
         if (self.velocity[1] > self.terminal_velocity):
             self.velocity[1] = self.terminal_velocity
 
-    def update_arm_state(self, arm_angle_rad):
+    def update_arm_state(self, mouse_angle):
+        arm_display_angle = mouse_angle - (math.pi/2)
         # Attached to player
         if (self.arm_state == ArmState.ATTACHED):
-            self.arm_angle = math.degrees(arm_angle_rad)
+            self.arm_angle = math.degrees(arm_display_angle)
             if (self.arm_flip):
                 self.arm_angle += self.charge
             if (self.arm_flip == False):
