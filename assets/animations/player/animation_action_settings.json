@@ -1,0 +1,12 @@
+{
+    "idle": {
+        "numberOfFrames": 1,
+        "frameHold": 7,
+        "isLoop": true
+    },
+    "moving": {
+        "numberOfFrames": 4,
+        "frameHold": 7,
+        "isLoop": true
+    }
+}

@@ -1,3 +1,0 @@
-arm/idle/ 7 loop
-player/idle/ 7 loop
-player/run/ 7;7;7;7 loop
