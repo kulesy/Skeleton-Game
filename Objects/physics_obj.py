@@ -24,8 +24,7 @@ class PhysicsObj(object):
         self.terminal_velocity = physics_constants.terminal_velocity
        
     def move(self, platforms):
-        collisions = { "x_collision": Collision(),
-                       "y_collision": Collision()}
+        collision = Collision()
 
         self.x += self.velocity[0]
         self.rect.x = int(round(self.x))
@@ -34,10 +33,10 @@ class PhysicsObj(object):
         for block in block_hit_list:
             if self.velocity[0] > 0:
                 self.rect.right = block.left
-                collisions["x_collision"] = Collision(True, CollisionEnum.RIGHT, [block.x, block.y])
+                collision = Collision(True, CollisionEnum.RIGHT, [block.x, block.y])
             elif self.velocity[0] < 0:
                 self.rect.left = block.right
-                collisions["x_collision"] = Collision(True, CollisionEnum.LEFT, [block.x, block.y])
+                collision = Collision(True, CollisionEnum.LEFT, [block.x, block.y])
         
         self.x = self.rect.x
 
@@ -48,14 +47,14 @@ class PhysicsObj(object):
         for block in block_hit_list:
             if self.velocity[1] > 0:
                 self.rect.bottom = block.top
-                collisions["y_collision"] = Collision(True, CollisionEnum.BOTTOM, [block.x, block.y])
+                collision = Collision(True, CollisionEnum.TOP, [block.x, block.y])
             elif self.velocity[1] < 0:
                 self.rect.top = block.bottom
-                collisions["y_collision"] = Collision(True, CollisionEnum.TOP, [block.x, block.y])
+                collision = Collision(True, CollisionEnum.BOTTOM, [block.x, block.y])
 
         self.y = self.rect.y
 
-        return collisions
+        return collision
     
     def collision_test(self, object_1, object_list):
         collision_list = []

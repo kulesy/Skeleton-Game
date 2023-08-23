@@ -6,7 +6,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "11;5": {
             "position": [
@@ -14,7 +15,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "14;5": {
             "position": [
@@ -22,7 +24,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "13;5": {
             "position": [
@@ -30,7 +33,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "10;5": {
             "position": [
@@ -38,7 +42,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "16;5": {
             "position": [
@@ -46,7 +51,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "15;5": {
             "position": [
@@ -54,7 +60,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "11;6": {
             "position": [
@@ -62,7 +69,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "10;6": {
             "position": [
@@ -70,7 +78,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "9;5": {
             "position": [
@@ -78,7 +87,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "12;8": {
             "position": [
@@ -86,7 +96,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "13;7": {
             "position": [
@@ -94,7 +105,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "13;8": {
             "position": [
@@ -102,7 +114,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "13;9": {
             "position": [
@@ -110,7 +123,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "12;9": {
             "position": [
@@ -118,7 +132,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "11;9": {
             "position": [
@@ -126,7 +141,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "11;8": {
             "position": [
@@ -134,7 +150,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "11;7": {
             "position": [
@@ -142,7 +159,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "12;7": {
             "position": [
@@ -150,7 +168,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "14;6": {
             "position": [
@@ -158,7 +177,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "14;7": {
             "position": [
@@ -166,7 +186,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "14;8": {
             "position": [
@@ -174,7 +195,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "14;9": {
             "position": [
@@ -182,7 +204,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "14;10": {
             "position": [
@@ -190,7 +213,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "13;10": {
             "position": [
@@ -198,7 +222,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "12;10": {
             "position": [
@@ -206,7 +231,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "11;10": {
             "position": [
@@ -214,7 +240,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "10;10": {
             "position": [
@@ -222,7 +249,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "10;9": {
             "position": [
@@ -230,7 +258,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "10;8": {
             "position": [
@@ -238,7 +267,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "10;7": {
             "position": [
@@ -246,7 +276,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "12;6": {
             "position": [
@@ -254,7 +285,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "13;6": {
             "position": [
@@ -262,7 +294,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "15;6": {
             "position": [
@@ -270,7 +303,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "15;7": {
             "position": [
@@ -278,7 +312,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "15;8": {
             "position": [
@@ -286,7 +321,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "15;9": {
             "position": [
@@ -294,7 +330,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "15;10": {
             "position": [
@@ -302,7 +339,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "15;11": {
             "position": [
@@ -310,7 +348,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "14;11": {
             "position": [
@@ -318,7 +357,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "13;11": {
             "position": [
@@ -326,7 +366,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "12;11": {
             "position": [
@@ -334,7 +375,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "11;11": {
             "position": [
@@ -342,7 +384,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "10;11": {
             "position": [
@@ -350,7 +393,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "9;11": {
             "position": [
@@ -358,7 +402,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "9;10": {
             "position": [
@@ -366,7 +411,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "9;9": {
             "position": [
@@ -374,7 +420,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "9;8": {
             "position": [
@@ -382,7 +429,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "9;7": {
             "position": [
@@ -390,7 +438,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "9;6": {
             "position": [
@@ -398,7 +447,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "19;8": {
             "position": [
@@ -406,7 +456,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "20;7": {
             "position": [
@@ -414,7 +465,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "20;8": {
             "position": [
@@ -422,7 +474,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "20;9": {
             "position": [
@@ -430,7 +483,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "19;9": {
             "position": [
@@ -438,7 +492,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "18;9": {
             "position": [
@@ -446,7 +501,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "18;8": {
             "position": [
@@ -454,7 +510,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "18;7": {
             "position": [
@@ -462,7 +519,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "19;7": {
             "position": [
@@ -470,7 +528,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "21;6": {
             "position": [
@@ -478,7 +537,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "21;7": {
             "position": [
@@ -486,7 +546,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "21;8": {
             "position": [
@@ -494,7 +555,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "21;9": {
             "position": [
@@ -502,7 +564,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "21;10": {
             "position": [
@@ -510,7 +573,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "20;10": {
             "position": [
@@ -518,7 +582,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "19;10": {
             "position": [
@@ -526,7 +591,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "18;10": {
             "position": [
@@ -534,7 +600,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "17;10": {
             "position": [
@@ -542,7 +609,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "17;9": {
             "position": [
@@ -550,7 +618,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "17;8": {
             "position": [
@@ -558,7 +627,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "17;7": {
             "position": [
@@ -566,7 +636,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "17;6": {
             "position": [
@@ -574,7 +645,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "18;6": {
             "position": [
@@ -582,7 +654,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "19;6": {
             "position": [
@@ -590,7 +663,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "20;6": {
             "position": [
@@ -598,7 +672,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "22;5": {
             "position": [
@@ -606,7 +681,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "22;6": {
             "position": [
@@ -614,7 +690,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "22;7": {
             "position": [
@@ -622,7 +699,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "22;8": {
             "position": [
@@ -630,7 +708,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "22;9": {
             "position": [
@@ -638,7 +717,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "22;10": {
             "position": [
@@ -646,7 +726,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "22;11": {
             "position": [
@@ -654,7 +735,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "21;11": {
             "position": [
@@ -662,7 +744,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "20;11": {
             "position": [
@@ -670,7 +753,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "19;11": {
             "position": [
@@ -678,7 +762,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "18;11": {
             "position": [
@@ -686,7 +771,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "17;11": {
             "position": [
@@ -694,7 +780,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "16;11": {
             "position": [
@@ -702,7 +789,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "16;10": {
             "position": [
@@ -710,7 +798,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "16;9": {
             "position": [
@@ -718,7 +807,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "16;8": {
             "position": [
@@ -726,7 +816,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "16;7": {
             "position": [
@@ -734,7 +825,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "16;6": {
             "position": [
@@ -742,7 +834,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "17;5": {
             "position": [
@@ -750,7 +843,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "18;5": {
             "position": [
@@ -758,7 +852,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "19;5": {
             "position": [
@@ -766,7 +861,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "20;5": {
             "position": [
@@ -774,7 +870,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "21;5": {
             "position": [
@@ -782,7 +879,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "5;8": {
             "position": [
@@ -790,7 +888,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "6;7": {
             "position": [
@@ -798,7 +897,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "6;8": {
             "position": [
@@ -806,7 +906,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "6;9": {
             "position": [
@@ -814,7 +915,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "5;9": {
             "position": [
@@ -822,7 +924,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "4;9": {
             "position": [
@@ -830,7 +933,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "4;8": {
             "position": [
@@ -838,7 +942,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "4;7": {
             "position": [
@@ -846,7 +951,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "5;7": {
             "position": [
@@ -854,7 +960,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "7;6": {
             "position": [
@@ -862,7 +969,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "7;7": {
             "position": [
@@ -870,7 +978,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "7;8": {
             "position": [
@@ -878,7 +987,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "7;9": {
             "position": [
@@ -886,7 +996,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "7;10": {
             "position": [
@@ -894,7 +1005,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "6;10": {
             "position": [
@@ -902,7 +1014,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "5;10": {
             "position": [
@@ -910,7 +1023,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "4;10": {
             "position": [
@@ -918,7 +1032,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "3;10": {
             "position": [
@@ -926,7 +1041,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "3;9": {
             "position": [
@@ -934,7 +1050,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "3;8": {
             "position": [
@@ -942,7 +1059,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "3;7": {
             "position": [
@@ -950,7 +1068,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "3;6": {
             "position": [
@@ -958,7 +1077,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "4;6": {
             "position": [
@@ -966,7 +1086,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "5;6": {
             "position": [
@@ -974,7 +1095,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "6;6": {
             "position": [
@@ -982,7 +1104,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "8;5": {
             "position": [
@@ -990,7 +1113,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "8;6": {
             "position": [
@@ -998,7 +1122,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "8;7": {
             "position": [
@@ -1006,7 +1131,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "8;8": {
             "position": [
@@ -1014,7 +1140,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "8;9": {
             "position": [
@@ -1022,7 +1149,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "8;10": {
             "position": [
@@ -1030,7 +1158,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "8;11": {
             "position": [
@@ -1038,7 +1167,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "7;11": {
             "position": [
@@ -1046,7 +1176,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "6;11": {
             "position": [
@@ -1054,7 +1185,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "5;11": {
             "position": [
@@ -1062,7 +1194,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "4;11": {
             "position": [
@@ -1070,7 +1203,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "3;11": {
             "position": [
@@ -1078,7 +1212,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "2;11": {
             "position": [
@@ -1086,7 +1221,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "2;10": {
             "position": [
@@ -1094,7 +1230,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "2;9": {
             "position": [
@@ -1102,7 +1239,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "2;8": {
             "position": [
@@ -1110,7 +1248,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "2;7": {
             "position": [
@@ -1118,7 +1257,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "2;6": {
             "position": [
@@ -1126,7 +1266,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "2;5": {
             "position": [
@@ -1134,7 +1275,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "3;5": {
             "position": [
@@ -1142,7 +1284,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "4;5": {
             "position": [
@@ -1150,7 +1293,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "5;5": {
             "position": [
@@ -1158,7 +1302,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "6;5": {
             "position": [
@@ -1166,7 +1311,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "7;5": {
             "position": [
@@ -1174,7 +1320,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "26;8": {
             "position": [
@@ -1182,7 +1329,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "27;7": {
             "position": [
@@ -1190,7 +1338,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "27;8": {
             "position": [
@@ -1198,7 +1347,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "27;9": {
             "position": [
@@ -1206,7 +1356,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "26;9": {
             "position": [
@@ -1214,7 +1365,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "25;9": {
             "position": [
@@ -1222,7 +1374,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "25;8": {
             "position": [
@@ -1230,7 +1383,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "25;7": {
             "position": [
@@ -1238,7 +1392,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "26;7": {
             "position": [
@@ -1246,7 +1401,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "28;6": {
             "position": [
@@ -1254,7 +1410,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "28;7": {
             "position": [
@@ -1262,7 +1419,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "28;8": {
             "position": [
@@ -1270,7 +1428,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "28;9": {
             "position": [
@@ -1278,7 +1437,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "28;10": {
             "position": [
@@ -1286,7 +1446,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "27;10": {
             "position": [
@@ -1294,7 +1455,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "26;10": {
             "position": [
@@ -1302,7 +1464,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "25;10": {
             "position": [
@@ -1310,7 +1473,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "24;10": {
             "position": [
@@ -1318,7 +1482,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "24;9": {
             "position": [
@@ -1326,7 +1491,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "24;8": {
             "position": [
@@ -1334,7 +1500,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "24;7": {
             "position": [
@@ -1342,7 +1509,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "24;6": {
             "position": [
@@ -1350,7 +1518,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "25;6": {
             "position": [
@@ -1358,7 +1527,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "26;6": {
             "position": [
@@ -1366,7 +1536,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "27;6": {
             "position": [
@@ -1374,7 +1545,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "29;5": {
             "position": [
@@ -1382,7 +1554,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "29;6": {
             "position": [
@@ -1390,7 +1563,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "29;7": {
             "position": [
@@ -1398,7 +1572,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "29;8": {
             "position": [
@@ -1406,7 +1581,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "29;9": {
             "position": [
@@ -1414,7 +1590,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "29;10": {
             "position": [
@@ -1422,7 +1599,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "29;11": {
             "position": [
@@ -1430,7 +1608,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "28;11": {
             "position": [
@@ -1438,7 +1617,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "27;11": {
             "position": [
@@ -1446,7 +1626,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "26;11": {
             "position": [
@@ -1454,7 +1635,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "25;11": {
             "position": [
@@ -1462,7 +1644,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "24;11": {
             "position": [
@@ -1470,7 +1653,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "23;11": {
             "position": [
@@ -1478,7 +1662,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "23;10": {
             "position": [
@@ -1486,7 +1671,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "23;9": {
             "position": [
@@ -1494,7 +1680,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "23;8": {
             "position": [
@@ -1502,7 +1689,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "23;7": {
             "position": [
@@ -1510,7 +1698,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "23;6": {
             "position": [
@@ -1518,7 +1707,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "23;5": {
             "position": [
@@ -1526,7 +1716,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "24;5": {
             "position": [
@@ -1534,7 +1725,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "25;5": {
             "position": [
@@ -1542,7 +1734,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "26;5": {
             "position": [
@@ -1550,7 +1743,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "27;5": {
             "position": [
@@ -1558,7 +1752,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "28;5": {
             "position": [
@@ -1566,7 +1761,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-2;8": {
             "position": [
@@ -1574,7 +1770,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-1;7": {
             "position": [
@@ -1582,7 +1779,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-1;8": {
             "position": [
@@ -1590,7 +1788,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-1;9": {
             "position": [
@@ -1598,7 +1797,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-2;9": {
             "position": [
@@ -1606,7 +1806,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-3;9": {
             "position": [
@@ -1614,7 +1815,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-3;8": {
             "position": [
@@ -1622,7 +1824,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-3;7": {
             "position": [
@@ -1630,7 +1833,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-2;7": {
             "position": [
@@ -1638,7 +1842,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "0;6": {
             "position": [
@@ -1646,7 +1851,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "0;7": {
             "position": [
@@ -1654,7 +1860,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "0;8": {
             "position": [
@@ -1662,7 +1869,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "0;9": {
             "position": [
@@ -1670,7 +1878,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "0;10": {
             "position": [
@@ -1678,7 +1887,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-1;10": {
             "position": [
@@ -1686,7 +1896,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-2;10": {
             "position": [
@@ -1694,7 +1905,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-3;10": {
             "position": [
@@ -1702,7 +1914,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-4;10": {
             "position": [
@@ -1710,7 +1923,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-4;9": {
             "position": [
@@ -1718,7 +1932,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-4;8": {
             "position": [
@@ -1726,7 +1941,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-4;7": {
             "position": [
@@ -1734,7 +1950,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-4;6": {
             "position": [
@@ -1742,7 +1959,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-3;6": {
             "position": [
@@ -1750,7 +1968,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-2;6": {
             "position": [
@@ -1758,7 +1977,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-1;6": {
             "position": [
@@ -1766,7 +1986,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "1;5": {
             "position": [
@@ -1774,7 +1995,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "1;6": {
             "position": [
@@ -1782,7 +2004,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "1;7": {
             "position": [
@@ -1790,7 +2013,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "1;8": {
             "position": [
@@ -1798,7 +2022,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "1;9": {
             "position": [
@@ -1806,7 +2031,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "1;10": {
             "position": [
@@ -1814,7 +2040,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "1;11": {
             "position": [
@@ -1822,7 +2049,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "0;11": {
             "position": [
@@ -1830,7 +2058,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-1;11": {
             "position": [
@@ -1838,7 +2067,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-2;11": {
             "position": [
@@ -1846,7 +2076,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-3;11": {
             "position": [
@@ -1854,7 +2085,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-4;11": {
             "position": [
@@ -1862,7 +2094,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-5;11": {
             "position": [
@@ -1870,7 +2103,8 @@
                 11
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-5;10": {
             "position": [
@@ -1878,7 +2112,8 @@
                 10
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-5;9": {
             "position": [
@@ -1886,7 +2121,8 @@
                 9
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-5;8": {
             "position": [
@@ -1894,7 +2130,8 @@
                 8
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-5;7": {
             "position": [
@@ -1902,7 +2139,8 @@
                 7
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-5;6": {
             "position": [
@@ -1910,7 +2148,8 @@
                 6
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-5;5": {
             "position": [
@@ -1918,7 +2157,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-4;5": {
             "position": [
@@ -1926,7 +2166,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-3;5": {
             "position": [
@@ -1934,7 +2175,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-2;5": {
             "position": [
@@ -1942,7 +2184,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "-1;5": {
             "position": [
@@ -1950,7 +2193,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "0;5": {
             "position": [
@@ -1958,7 +2202,8 @@
                 5
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "18;1": {
             "position": [
@@ -1966,7 +2211,8 @@
                 1
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "18;2": {
             "position": [
@@ -1974,7 +2220,8 @@
                 2
             ],
             "tile_type_id": 1,
-            "linked_tile_key": "17;1"
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "15;1": {
             "position": [
@@ -1982,7 +2229,8 @@
                 1
             ],
             "tile_type_id": 1,
-            "linked_tile_key": ""
+            "linked_tile_key": "",
+            "rotation": 0
         },
         "15;2": {
             "position": [
@@ -1990,13 +2238,58 @@
                 2
             ],
             "tile_type_id": 1,
-            "linked_tile_key": "16;1"
+            "linked_tile_key": "",
+            "rotation": 0
+        },
+        "19;2": {
+            "position": [
+                19,
+                2
+            ],
+            "tile_type_id": 2,
+            "linked_tile_key": "17;1",
+            "rotation": 180
+        },
+        "14;2": {
+            "position": [
+                14,
+                2
+            ],
+            "tile_type_id": 2,
+            "linked_tile_key": "16;1",
+            "rotation": 0
+        },
+        "16;1": {
+            "position": [
+                16,
+                1
+            ],
+            "tile_type_id": 3,
+            "linked_tile_key": "",
+            "rotation": 90
+        },
+        "17;1": {
+            "position": [
+                17,
+                1
+            ],
+            "tile_type_id": 3,
+            "linked_tile_key": "",
+            "rotation": 270
         }
     },
     "tile_types": [
         {
             "tile_type_id": 1,
             "texture_path": "C:/Users/The Little Monkey/Documents/Personal/Projects/py/Level Editor/Images/brick.png"
+        },
+        {
+            "tile_type_id": 2,
+            "texture_path": "C:/Users/The Little Monkey/Documents/Personal/Projects/py/Level Editor/images/button.png"
+        },
+        {
+            "tile_type_id": 3,
+            "texture_path": "C:/Users/The Little Monkey/Documents/Personal/Projects/py/Level Editor/images/platform.png"
         }
     ]
 }

@@ -38,9 +38,9 @@ controls = Controls()
 
 while True:
     display.fill((0,0,0))
-    map.render(display)
-
     map.update_scroll_pos(player.x, player.y, player.width, player.height)
+
+    map.render(display)
     
     controls.handle_controls_events(pygame.event.get())
 

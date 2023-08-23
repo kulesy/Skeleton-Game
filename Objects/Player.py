@@ -35,13 +35,13 @@ class Player(Entity):
     def move(self, map_tile_rects) -> None:
         self.apply_opposing_forces()
         
-        player_collisions = super().move(map_tile_rects)
-        if (player_collisions["y_collision"].has_collided and 
-            player_collisions["y_collision"].direction == CollisionEnum.TOP):
+        player_collision = super().move(map_tile_rects)
+        if (player_collision.has_collided and 
+            player_collision.direction == CollisionEnum.BOTTOM):
             self.velocity[1] = 0
 
-        if (player_collisions["y_collision"].has_collided and 
-            player_collisions["y_collision"].direction == CollisionEnum.BOTTOM):
+        if (player_collision.has_collided and 
+            player_collision.direction == CollisionEnum.TOP):
             self.air_timer = 0
         else:
             self.air_timer += 1
@@ -62,40 +62,37 @@ class Player(Entity):
                     self.arm.rect.x = self.arm.x
         elif (self.arm_state == ArmStateEnum.DETACHED):
             arm_tiles_collision = self.arm.move(map_tile_rects)
-            x_collision = arm_tiles_collision["x_collision"]
-            y_collision = arm_tiles_collision["y_collision"]
             self.arm.velocity[1] += self.gravity
 
-            if (x_collision.has_collided or 
-                y_collision.has_collided):
+            if (arm_tiles_collision.has_collided):
                 self.arm_state = ArmStateEnum.STUCK
 
-                if (x_collision.has_collided):
-                    if (x_collision.direction == CollisionEnum.LEFT): 
+                if (arm_tiles_collision.has_collided):
+
+                    if (arm_tiles_collision.direction == CollisionEnum.LEFT): 
+                        self.arm.x += self.arm.rect.width
+                        self.arm.x -= (self.arm_image.get_height() / 4)
                         self.arm_angle = 90
-                        self.arm.x += 3
-                    elif (x_collision.direction == CollisionEnum.RIGHT):
-                        self.arm.x -= 1
+                    elif (arm_tiles_collision.direction == CollisionEnum.RIGHT):
+                        self.arm.x += (self.arm_image.get_height() / 4)
                         self.arm_angle = 90
-                    
-                    collided_tile_key = f"{int(x_collision.position[0]/self.map.tile_size)};{int(x_collision.position[1]/self.map.tile_size)}"
+                    elif (arm_tiles_collision.direction == CollisionEnum.TOP): 
+                        self.arm.y += (self.arm_image.get_height() / 4)
+                        self.arm_angle = 0
+                    elif (arm_tiles_collision.direction == CollisionEnum.BOTTOM): 
+                        self.arm.y += self.arm.rect.height
+                        self.arm.y -= (self.arm_image.get_height() / 4)
+                        self.arm_angle = 180
+
+                    collided_tile_key = f"{int(arm_tiles_collision.position[0]/self.map.tile_size)};{int(arm_tiles_collision.position[1]/self.map.tile_size)}"
                     if (collided_tile_key in self.map.map_model.tiles):
                         collided_tile = self.map.map_model.tiles[collided_tile_key]
                         if (collided_tile.linked_tile_key != ""):
                             self.arm_opened_platform = self.map.platforms[collided_tile.linked_tile_key]
                             self.arm_opened_platform.is_open = True
-
-                elif (y_collision.direction == CollisionEnum.TOP): 
-                    self.arm.y += 3
-                    self.arm_angle = 180
-                elif (y_collision.direction == CollisionEnum.BOTTOM): 
-                    self.arm.y -= 3
-                    self.arm_angle = 0
                     
                 self.arm.velocity[0] = 0
                 self.arm.velocity[1] = 0
-
-
         elif (self.arm_state == ArmStateEnum.STUCK):
             arm_player_collision = self.arm.rect.colliderect(self.rect)
             if (arm_player_collision):
@@ -106,24 +103,30 @@ class Player(Entity):
         return
     
     def connect_arm(self):
-        x_offset = 3
+        x_offset = 4
         y_offset = 13
         if (self.arm.flip):
-            x_offset += (self.width / 2) + 2 
+            x_offset += (self.width / 2) - 1
 
         self.arm.x = self.x + x_offset
         self.arm.y = self.y + y_offset
-        self.arm.rect.x = self.x + x_offset
+        self.arm.rect.x = self.x + x_offset - 2
         self.arm.rect.y = self.y + y_offset
     
     def render(self, display, scroll) -> None:
         super().render(display, scroll)
-        arm_surface = pygame.Surface((self.arm_image.get_width() * 2, self.arm_image.get_height() * 2))
-        arm_surface.set_colorkey((0, 0, 0))
-        arm_surface.blit(self.arm_image, (0, self.arm_image.get_height()))
+        arm_surface = self.arm_image
+        player_arm_image_loc = [self.arm.x, self.arm.y]
+        
+        if (self.arm_state != ArmStateEnum.STUCK):
+            arm_surface = pygame.Surface((self.arm_image.get_width() * 2, self.arm_image.get_height() * 2))
+            arm_surface.set_colorkey((0, 0, 0))
+            arm_surface.blit(self.arm_image, (0, self.arm_image.get_height()))
+
         arm_surface = pygame.transform.flip(pygame.transform.rotate(arm_surface, self.arm_angle), self.arm.flip, False)
         player_arm_image_loc = [round(self.arm.x) - int(arm_surface.get_width() / 2), self.arm.y - int(arm_surface.get_height() / 2)]
-        display.blit(arm_surface, (player_arm_image_loc[0] - scroll[0], player_arm_image_loc[1] - scroll[1]))
+        
+        display.blit(arm_surface, (player_arm_image_loc[0]- scroll[0], player_arm_image_loc[1] - scroll[1]))
         return
 
     def jump(self) -> None:
