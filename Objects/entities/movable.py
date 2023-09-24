@@ -5,7 +5,7 @@ from dtos.collisiondtos.tile_collision import TileCollision
 from dtos.collisiondtos.collision_response import CollisionResponse
 from enums.global_enums import CollisionEnum, DirectionEnum
 from objects.entities.entity import Entity
-from objects.tile import Tile
+from objects.tile import Block
 
 class Movable(object):
     def __init__(self, entity:Entity):
@@ -13,39 +13,35 @@ class Movable(object):
         self.velocity = []
         self.direction = None
 
-    def move(self, tiles: dict[str, Tile]) -> CollisionResponse:
+    def move(self, tiles: dict[str, Block]) -> CollisionResponse:
         collision_response = CollisionResponse()
-
-        self.x += self.velocity[0]
-        self._entity.rect.x = int(round(self.x))
+        
+        previous_x = self._entity.x
+        self._entity.x + self.velocity[0]
         collided_tile = self.collision_test(tiles.values())
 
         if (collided_tile != None):
-            collision_response.
             if self.velocity[0] > 0:
-                self._entity.rect.right = collided_tile.rect.left
                 collision_response.tile_collision_x = TileCollision(collided_tile, CollisionEnum.RIGHT)
             elif self.velocity[0] < 0:
-                self._entity.rect.left = collided_tile.rect.right
                 collision_response.tile_collision_x = TileCollision(collided_tile, CollisionEnum.LEFT)
-        
-        self.x = self._entity.rect.x
+            self._entity.x = projected_x
+        else:
 
-        self.y += self.velocity[1]
-        self._entity.rect.y = int(round(self.y))
+        projected_y = self._entity.y + self.velocity[1]
         collided_tile = self.collision_test(tiles.values())
 
         if (collided_tile != None):
             if self.velocity[1] > 0:
-                self._entity.rect.bottom = collided_tile.rect.top
+                self._entity.y = collided_tile.rect.top
                 self.velocity[1] = 0
                 collision_response.tile_collision_y = TileCollision(collided_tile, CollisionEnum.TOP)
             elif self.velocity[1] < 0:
-                self._entity.rect.top = collided_tile.rect.bottom
+                self._entity.y = collided_tile.rect.bottom
                 self.velocity[1] = 0
                 collision_response.tile_collision_y = TileCollision(collided_tile, CollisionEnum.BOTTOM)
 
-        self.y = self._entity.rect.y
+        self.y = self._entity.y
 
         self.apply_opposing_forces(collision_response.tile_collision_y)
         self.update_direction()

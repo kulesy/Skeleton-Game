@@ -2,9 +2,8 @@ import json
 import math
 import pygame
 from consts.colourconsts import BLACK
-from enums.global_enums import DirectionEnum, PlatformEnum
+from models.map.map_model import MapModel, MapSchema
 from objects.disappearing_platforms import DisapearingPlatforms
-from objects.models.map.map_model import MapModel, MapSchema
 from objects.opening_platforms import OpeningPlatforms
 
 class Map:
@@ -13,6 +12,7 @@ class Map:
             map_json = json.load(f)
     
         self.map_model: MapModel = MapSchema().load(map_json)
+        self.
         self.display = display
         self.tile_size = tile_size
         self.tile_type_textures = {}

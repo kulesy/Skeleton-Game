@@ -20,5 +20,5 @@ class MapSchema(Schema):
     entity_types = fields.Nested(EntityTypeSchema(many=True))
 
     @post_load
-    def post_load(self, data, **kwargs):
+    def post_load(self, data, **kwargs) -> MapModel:
         return MapModel(**data)
