@@ -23,6 +23,7 @@ class PlatformEnum(Enum):
 class ActionEnum(Enum):
     IDLE = 0
     MOVING = 1
+    JUMPING = 2
 
 class ArmStateEnum(Enum):
     ATTACHED = 0

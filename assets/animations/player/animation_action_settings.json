@@ -6,7 +6,12 @@
     },
     "moving": {
         "numberOfFrames": 4,
-        "frameHold": 7,
+        "frameHold": 4,
         "isLoop": true
+    },
+    "jumping": {
+        "numberOfFrames": 2,
+        "frameHold": 7,
+        "isLoop": false
     }
 }

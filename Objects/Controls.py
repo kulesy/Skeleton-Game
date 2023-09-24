@@ -12,6 +12,8 @@ class Controls:
 
         self.is_respawning: bool = False
 
+        self.is_recalling: bool = False
+
     
     def handle_controls_events(self, events) -> None:
         for event in events:
@@ -26,6 +28,8 @@ class Controls:
                     self.is_moving_right = True
                 if (event.key == K_w):
                     self.is_jumping = True
+                if (event.key == K_v):
+                    self.is_recalling = True
                     
             if (event.type == KEYUP):
                 if (event.key == K_a):
@@ -34,7 +38,8 @@ class Controls:
                     self.is_moving_right = False
                 if (event.key == K_r):
                     self.is_respawning = True
-
+                if (event.key == K_v):
+                    self.is_recalling = False
             if (event.type == QUIT):
                 pygame.quit()
                 sys.exit()

@@ -1,4 +1,5 @@
 import pygame
+from enums.global_enums import ActionEnum, ArmStateEnum
 from objects.physics_constants import PhysicsConstants
 
 from scripts.text import Font
@@ -24,7 +25,7 @@ physics_constants = PhysicsConstants()
 friction = 0.2
 terminal_velocity = 3
 
-map = Map(16)
+map = Map(16, display)
 
 jump_height = 50
 player_image = pygame.image.load('assets/animations/player/idle/0.png')
@@ -44,11 +45,14 @@ while True:
     
     controls.handle_controls_events(pygame.event.get())
 
-    mouse_angle = cursor.get_mouse_angle_rad(map.scroll, (player.arm.x, player.arm.y))
+    mouse_angle = cursor.get_mouse_angle_rad(map.scroll, (player.x + player.arm_offset[0], player.y + player.arm_offset[1]))
 
-    player.update_arm_state(mouse_angle)
+    player.arm_left.update_arm_state(mouse_angle)
+    player.arm_right.update_arm_state(mouse_angle)
 
-    player.handle_charging_throw(display, map.scroll, controls.is_charging_throw, mouse_angle)
+    player.handle_charging_throw(display, map.scroll, controls.is_charging_throw, mouse_angle, player.arm_left)
+    if (player.arm_left.arm_state != ArmStateEnum.ATTACHED):
+        player.handle_charging_throw(display, map.scroll, controls.is_charging_throw, mouse_angle, player.arm_right)
         
     if (controls.is_respawning):
         current_spawn_point = spawn_points[0]
@@ -62,9 +66,9 @@ while True:
         player = Player(spawn_points[0], map)
 
     ## ARM HITBOX
-    arm_rect = player.arm.rect.copy()
-    arm_rect.x = player.arm.rect.x - map.scroll[0]
-    arm_rect.y = player.arm.rect.y - map.scroll[1]
+    arm_rect = player.arm_left.rect.copy()
+    arm_rect.x = player.arm_left.rect.x - map.scroll[0]
+    arm_rect.y = player.arm_left.rect.y - map.scroll[1]
     pygame.draw.rect(display, (255, 0, 0) , arm_rect)
 
     if (controls.is_moving_left): 
@@ -72,12 +76,21 @@ while True:
     elif (controls.is_moving_right): 
         player.velocity[0] = 2
 
+    if ((controls.is_moving_left or 
+        controls.is_moving_right) and 
+        player.air_timer == 0):
+        player.set_action(ActionEnum.MOVING)
+    elif (player.air_timer == 0):
+        player.set_action(ActionEnum.IDLE)
+
     if (controls.is_jumping):
+        player.set_action(ActionEnum.JUMPING)
         player.jump()
         controls.is_jumping = False
 
-    player.move(map.tile_rects)
-    player.move_arm(map.tile_rects, mouse_angle)
+    player.move(map.tile_rects, mouse_angle)
+    player.arm_left.move_arm(map.tile_rects)
+    player.arm_right.move_arm(map.tile_rects)
     player.render(display, map.scroll)
 
     if (pygame.time.get_ticks() < 3000):

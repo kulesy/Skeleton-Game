@@ -1,37 +1,57 @@
 import json
+import math
 import pygame
 from consts.colourconsts import BLACK
 from enums.global_enums import DirectionEnum, PlatformEnum
+from objects.disappearing_platforms import DisapearingPlatforms
 from objects.models.map.map_model import MapModel, MapSchema
-from objects.platform import Platform
+from objects.opening_platforms import OpeningPlatforms
 
 class Map:
-    def __init__(self, tile_size):
+    def __init__(self, tile_size, display):
         with open('map.json') as f:
             map_json = json.load(f)
     
         self.map_model: MapModel = MapSchema().load(map_json)
+        self.display = display
         self.tile_size = tile_size
         self.tile_type_textures = {}
         self.tile_type_rects = {}
+        self.enemy_type_textures = {}
+        self.enemy_type_rects = {}
         self.scroll = [0,0]
         self.tile_rects = []
         self.true_scroll: list[float] = [0, 0]
         self.init_tile_types()
-        self.platforms : dict[str, Platform] = {}
+        self.opening_platforms : dict[str, OpeningPlatforms] = {}
+        self.disapearing_platforms : dict[str, DisapearingPlatforms] = {}
 
-    def render(self, display):
+    def render(self):
         self.tile_rects = []
-        map_tiles = self.map_model.tiles
+        self.render_map_tiles()
+        self.render_map_enemies()
 
-        for tile in map_tiles.values():
+    def render_map_tiles(self):
+         for tile in self.map_model.tiles.values():
             tile_key = f"{tile.position[0]};{tile.position[1]}"
             rotation = tile.rotation
-            if (tile.tile_type_id == 3 and tile_key in self.platforms):
-                platform = self.platforms[tile_key]
+            position = tile.position.copy()
+            is_visible = True
+            if (tile.tile_type_id == 3 and tile_key in self.opening_platforms):
+                platform = self.opening_platforms[tile_key]
                 if (platform.is_open):
-                    rotation = 0
-                    
+                    if (tile.rotation == 0):
+                        rotation = 90
+                        position[1] -= 1
+                    elif (tile.rotation == 90):
+                        rotation = 180
+                        position[0] -= 1
+                    elif (tile.rotation == 180):
+                        rotation = 270
+                        position[1] += 1
+                    elif (tile.rotation == 270):
+                        rotation = 0
+                        position[0] += 1
                 if (platform.is_closing and 
                     platform.close_counter <= 300):
                     platform.close_counter += 1
@@ -39,34 +59,66 @@ class Map:
                     platform.is_open = False
                     platform.is_closing = False
                     platform.close_counter = 0
+                else: 
+                    platform.close_counter = 0
             elif (tile.tile_type_id == 3):
-                self.platforms[tile_key] = Platform(self.tile_size, tile.position, False)
+                self.opening_platforms[tile_key] = OpeningPlatforms(False)
             
+            if (tile.tile_type_id == 4 and tile_key in self.disapearing_platforms):
+                platform = self.disapearing_platforms[tile_key]
+                if (platform.has_disapeared):
+                    is_visible = False
+                elif (platform.is_disapearing and 
+                    platform.disapear_counter <= 70):
+                    platform.disapear_counter += 1
+                elif (platform.disapear_counter > 70):
+                    platform.has_disapeared = True
+                    platform.is_disapearing = False
+                    platform.disapear_counter = 0
+            elif (tile.tile_type_id == 4):
+                self.disapearing_platforms[tile_key] = DisapearingPlatforms()
 
-            texture: pygame.Surface = self.tile_type_textures[tile.tile_type_id]
-            display.blit(pygame.transform.rotate(texture, rotation), 
-                         (tile.position[0] * self.tile_size - self.scroll[0],
-                         tile.position[1] * self.tile_size - self.scroll[1]))
-            
-            tile_rect: pygame.Rect = self.tile_type_rects[tile.tile_type_id]
-
-            rotated_rect = self.get_rotated_rect(tile_rect.copy(), rotation)
-            
-            self.tile_rects.append(pygame.Rect(tile.position[0] * self.tile_size + rotated_rect.x,
-                                                tile.position[1] * self.tile_size + rotated_rect.y, 
-                                                rotated_rect.width, rotated_rect.height))
+            if (is_visible):
+                texture: pygame.Surface = self.tile_type_textures[tile.tile_type_id]
+                self.render_surface(pygame.transform.rotate(texture, rotation), self.get_map_position(position))
                 
+                tile_rect: pygame.Rect = self.tile_type_rects[tile.tile_type_id]
+
+                rotated_rect = self.get_rotated_rect(tile_rect.copy(), rotation)
+                
+                self.tile_rects.append(pygame.Rect(position[0] * self.tile_size + rotated_rect.x,
+                                                    position[1] * self.tile_size + rotated_rect.y, 
+                                                    rotated_rect.width, rotated_rect.height))
+
+    def render_map_enemies(self, player_position):
+        for enemy in self.map_model.enemies:
+            diff_x = enemy.position[0] - player_position[0]
+            diff_y = enemy.position[1] - player_position[1]
+            hypotenuse = math.sqrt(diff_x**2 + diff_y**2)
+            
+            texture: pygame.Surface = self.enemy_type_textures[enemy.enemy_type_id]
+            position = enemy.position[0] 
+            self.render_surface(texture, self.get_map_position(position))
+    
+    def render_surface(self, surface, position):
+        self.display.blit(surface, self.get_map_position(position))
 
     def init_tile_types(self):
-        map_textures = self.map_model.tile_types
-
-        for texture in map_textures:
-            texture_image = pygame.image.load(texture.texture_path)
+        for tile_type in self.map_model.tile_types:
+            texture_image = pygame.image.load(tile_type.texture_path)
             texture_image.set_colorkey(BLACK)
             texture_image.convert_alpha()
             tile_rect = self.get_non_transparent_bounds(texture_image)
-            self.tile_type_textures[texture.tile_type_id] = texture_image
-            self.tile_type_rects[texture.tile_type_id] = tile_rect
+            self.tile_type_textures[tile_type.tile_type_id] = texture_image
+            self.tile_type_rects[tile_type.tile_type_id] = tile_rect
+
+        for enemy_type in self.map_model.enemy_types:
+            texture_image = pygame.image.load(enemy_type.texture_path)
+            texture_image.set_colorkey(BLACK)
+            texture_image.convert_alpha()
+            enemy_rect = self.get_non_transparent_bounds(texture_image)
+            self.enemy_type_textures[enemy_type.enemy_type_id] = texture_image
+            self.enemy_type_rects[enemy_type.enemy_type_id] = enemy_rect
 
     def update_scroll_pos(self, player_x, player_y, player_width, player_height):
         self.true_scroll[0] += (player_x - self.true_scroll[0] - 150 + int(player_width / 2))/20
@@ -124,3 +176,8 @@ class Map:
             rect.height = width
 
         return rect
+    
+    def get_map_position(self, position):
+        map_position_x = position[0] * self.tile_size - self.scroll[0]
+        map_position_y = position[1] * self.tile_size - self.scroll[1]
+        return (map_position_x, map_position_y)
