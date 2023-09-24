@@ -1,9 +1,9 @@
 from marshmallow import Schema, fields, post_load
-from objects.models.map.entity_model import EntityModel, EntitySchema
-from objects.models.map.entity_type_model import EntityTypeModel, EntityTypeSchema
-from objects.models.map.block_type_model import BlockTypeModel, BlockTypeSchema
 
-from objects.models.map.block_model import BlockModel, BlockSchema
+from models.map.block_model import BlockModel, BlockSchema
+from models.map.block_type_model import BlockTypeModel, BlockTypeSchema
+from models.map.entity_model import EntityModel, EntitySchema
+from models.map.entity_type_model import EntityTypeModel, EntityTypeSchema
 
 class MapModel:
     def __init__(self, blocks: dict[str, BlockModel] = {}, block_types: list[BlockTypeModel] = [],

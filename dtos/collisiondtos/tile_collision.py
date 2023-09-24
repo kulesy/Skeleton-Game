@@ -1,5 +1,5 @@
 from enums.global_enums import CollisionEnum
-from objects.tile import Block
+from objects.block import Block
 
 class TileCollision: 
     def __init__(self, tile: Block, side: CollisionEnum):

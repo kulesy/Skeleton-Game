@@ -1,47 +1,46 @@
 from typing import Optional
-import pygame
 from consts.physicconsts import PhysicConsts
 from dtos.collisiondtos.tile_collision import TileCollision
 from dtos.collisiondtos.collision_response import CollisionResponse
 from enums.global_enums import CollisionEnum, DirectionEnum
 from objects.entities.entity import Entity
-from objects.tile import Block
+from objects.entities.hitbox import Hitbox
+from objects.block import Block
 
 class Movable(object):
-    def __init__(self, entity:Entity):
-        self._entity:Entity = entity
+    def __init__(self, hitbox):
+        self._hitbox: Hitbox = hitbox
         self.velocity = []
         self.direction = None
 
     def move(self, tiles: dict[str, Block]) -> CollisionResponse:
         collision_response = CollisionResponse()
         
-        previous_x = self._entity.x
-        self._entity.x + self.velocity[0]
-        collided_tile = self.collision_test(tiles.values())
+        self._hitbox.entity.x += self.velocity[0]
+        collided_tile = self.collision_test(list(tiles.values()))
 
         if (collided_tile != None):
             if self.velocity[0] > 0:
+                self._hitbox.entity.x = collided_tile.rect.right + self._hitbox.width + self._hitbox.offset_x
                 collision_response.tile_collision_x = TileCollision(collided_tile, CollisionEnum.RIGHT)
             elif self.velocity[0] < 0:
+                self._hitbox.entity.x = collided_tile.rect.left - self._hitbox.width - self._hitbox.offset_x
                 collision_response.tile_collision_x = TileCollision(collided_tile, CollisionEnum.LEFT)
-            self._entity.x = projected_x
-        else:
+            self.velocity[0] = 0
 
-        projected_y = self._entity.y + self.velocity[1]
-        collided_tile = self.collision_test(tiles.values())
+        self._hitbox.entity.y += self.velocity[1]
+        collided_tile = self.collision_test(list(tiles.values()))
 
         if (collided_tile != None):
             if self.velocity[1] > 0:
-                self._entity.y = collided_tile.rect.top
-                self.velocity[1] = 0
+                self._hitbox.entity.y = collided_tile.rect.top + self._hitbox.height + self._hitbox.offset_y
                 collision_response.tile_collision_y = TileCollision(collided_tile, CollisionEnum.TOP)
             elif self.velocity[1] < 0:
-                self._entity.y = collided_tile.rect.bottom
-                self.velocity[1] = 0
+                self._hitbox.entity.y = collided_tile.rect.bottom - self._hitbox.height - self._hitbox.offset_y
                 collision_response.tile_collision_y = TileCollision(collided_tile, CollisionEnum.BOTTOM)
+            self.velocity[1] = 0
 
-        self.y = self._entity.y
+        self.y = self._hitbox.entity.y
 
         self.apply_opposing_forces(collision_response.tile_collision_y)
         self.update_direction()
@@ -71,9 +70,9 @@ class Movable(object):
         elif (self.velocity[0] == 0):
             self.direction = DirectionEnum.NONE
 
-    def collision_test(self, tile_list):
+    def collision_test(self, tile_list: list[Block]):
         for tile in tile_list:
-            if tile.colliderect(self._entity.rect):
+            if tile.rect.colliderect(self._hitbox.get_hitbox_rect()):
                 return tile
         
         return None
