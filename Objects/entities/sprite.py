@@ -2,22 +2,26 @@ import json
 
 from pygame import Surface
 import pygame
+from enums.global_enums import ActionEnum
 
 from models.animation_action import AnimationAction
+from objects.entities.entity import Entity
 
 
 class Sprite(object):
-    def __init__(self, type):
-        self.current_frame = self.get_current_frame()
+    def __init__(self, entity, type):
+        self.entity: Entity = entity
         self.type = type
-        self.animation_actions = self.get_animation_actions(type)
-        self.action_id = 0
+        self.action_state = ActionEnum.IDLE
         self.current_frame_index = 0
         self.frame_hold__count = 0
-        self.is_flipped = False
+        self.animation_actions = self.get_animation_actions(type)
+        self.current_frame = self.get_current_frame()
+        entity.width = self.current_frame.get_width()
+        entity.height = self.current_frame.get_height()
 
     def get_current_frame(self):
-        animation_action: AnimationAction = self.animation_actions[self.action.name.lower()]
+        animation_action: AnimationAction = self.animation_actions[self.action_state]
         current_frame = animation_action.frames[self.current_frame_index]
         if (self.frame_hold__count >= animation_action.frameHold - 1):
             self.frame_hold__count = 0
@@ -29,12 +33,12 @@ class Sprite(object):
         else:
             self.frame_hold__count += 1
         
-        current_frame_flipped = pygame.transform.flip(current_frame, self.is_flipped, False)
+        current_frame_flipped = pygame.transform.flip(current_frame, self.entity.is_flipped, False)
         return current_frame_flipped
 
-    def get_animation_actions(self, type: str) -> dict[str, AnimationAction]:
+    def get_animation_actions(self, type: str) -> dict[ActionEnum, AnimationAction]:
         animations_path = f'assets/animations/{type}'
-        animationActions: dict[str, AnimationAction] = {}
+        animationActions: dict[ActionEnum, AnimationAction] = {}
 
         with open(f'{animations_path}/animation_action_settings.json', 'r') as f:
             animation = json.load(f)
@@ -45,17 +49,17 @@ class Sprite(object):
                     frame.set_colorkey((0,0,0))
                     frames.append(frame)
                 
-                animationActions[action] = AnimationAction(frames,
+                animationActions[ActionEnum(animation[action]["state"])] = AnimationAction(frames,
                                                            animation[action]["numberOfFrames"],
                                                            animation[action]["frameHold"],
                                                            animation[action]["isLoop"])
         
         return animationActions
     
-    def set_action(self, action):
-        if (self.action == action):
+    def set_action(self, action_state):
+        if (self.action_state == action_state):
             return
         
-        self.action = action
+        self.action_state = action_state
         self.current_frame_index = 0
         self.frame_hold__count = 0

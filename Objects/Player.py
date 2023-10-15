@@ -13,17 +13,13 @@ from objects.opening_platforms import OpeningPlatforms
 
 class Player:
     def __init__(self, map):
-        x = 10 * map.tile_size
-        y = 10 * map.tile_size - (self.sprite.current_frame.get_height()/2)
-        width = 10 * map.tile_size - (self.sprite.current_frame.get_height()/2)
-        height = 10 * map.tile_size - (self.sprite.current_frame.get_height()/2)
-        
-        self.sprite = Sprite("player")
-        self.entity = Entity(x, y,
-                             width, height)
+        self.entity = Entity()
+        self.entity.x = 200
+        self.entity.y = 130
+        self.sprite = Sprite(self.entity , "player")
         self.hitbox = Hitbox(self.entity, 0, 0,
-                             width, height)
-        self.movable = Movable(self.entity)
+                             self.entity.width, self.entity.height)
+        self.movable = Movable(self.hitbox)
         self.map: Map = map
 
         self.direction: DirectionEnum = DirectionEnum.NONE
@@ -38,7 +34,7 @@ class Player:
         self.air_timer:int = 0
     
     def move(self, mouse_angle) -> None:
-        collision_response = self.movable.move(self.map.tiles)
+        collision_response = self.movable.move(self.map.blocks)
 
         if (collision_response.tile_collision_y != None and
             collision_response.tile_collision_y.side == CollisionEnum.TOP):
@@ -87,21 +83,21 @@ class Player:
     def connect_arm_to_player(self, arm : Arm):
         x_offset = self.arm_offset[0]
         y_offset = self.arm_offset[1]
-        if (self.sprite.is_flipped):
+        if (self.entity.is_flipped):
             x_offset += (self.entity.width / 2) - 1
 
         arm.entity.x = self.entity.x + x_offset
         arm.entity.y = self.entity.y + y_offset
 
     def render(self, display, scroll) -> None:
-        if (self.sprite.is_flipped):
+        if (self.entity.is_flipped):
             self.arm_left.render(display, scroll)
         else:
             self.arm_right.render(display, scroll)
 
         self.map.render_surface(self.sprite.current_frame, (self.entity.x, self.entity.y))
         
-        if (self.sprite.is_flipped):
+        if (self.entity.is_flipped):
             self.arm_right.render(display, scroll)
         else:
             self.arm_left.render(display, scroll)
@@ -121,9 +117,9 @@ class Player:
             self.movable.direction = DirectionEnum.LEFT
 
         if (self.movable.direction == DirectionEnum.RIGHT):
-            self.sprite.is_flipped = False
+            self.entity.is_flipped = False
         elif (self.movable.direction == DirectionEnum.LEFT):
-            self.sprite.is_flipped = True
+            self.entity.is_flipped = True
 
         return
     

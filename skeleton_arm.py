@@ -1,6 +1,5 @@
 import pygame
 from enums.global_enums import ActionEnum, ArmStateEnum
-from objects.physics_constants import PhysicsConstants
 
 from scripts.text import Font
 
@@ -21,7 +20,6 @@ screen_zoom = 2
 screen = pygame.display.set_mode(WINDOW_SIZE, 0, 32)
 display = pygame.Surface((WINDOW_SIZE[0] / screen_zoom, WINDOW_SIZE[1] / screen_zoom))
 
-physics_constants = PhysicsConstants()
 friction = 0.2
 terminal_velocity = 3
 
@@ -33,19 +31,19 @@ player_image = pygame.image.load('assets/animations/player/idle/0.png')
 font = Font("assets/fonts/large_font.png", (255,255,255))
 
 spawn_points = [[12,4]]
-player = Player(spawn_points[0], map)
+player = Player(map)
 cursor = Cursor(WINDOW_SIZE, screen_zoom)
 controls = Controls()
 
 while True:
     display.fill((0,0,0))
-    map.update_scroll_pos(player.x, player.y, player.width, player.height)
+    map.update_scroll_pos(player.entity.x, player.entity.y, player.entity.width, player.entity.height)
 
-    map.render(display)
+    map.render()
     
     controls.handle_controls_events(pygame.event.get())
 
-    mouse_angle = cursor.get_mouse_angle_rad(map.scroll, (player.x + player.arm_offset[0], player.y + player.arm_offset[1]))
+    mouse_angle = cursor.get_mouse_angle_rad(map.scroll, (player.entity.x + player.arm_offset[0], player.entity.y + player.arm_offset[1]))
 
     player.arm_left.update_arm_state(mouse_angle)
     player.arm_right.update_arm_state(mouse_angle)
@@ -57,40 +55,40 @@ while True:
     if (controls.is_respawning):
         current_spawn_point = spawn_points[0]
         for spawn_point in spawn_points:
-            if (player.y <= spawn_point[1] * 16):
+            if (player.entity.y <= spawn_point[1] * 16):
                 current_spawn_point = spawn_point
-        player = Player(current_spawn_point, map)
+        player = Player(map)
         controls.is_respawning = False
 
-    if (player.y > 100):
-        player = Player(spawn_points[0], map)
+    if (player.entity.y > 10000):
+        player = Player(map)
 
     ## ARM HITBOX
-    arm_rect = player.arm_left.rect.copy()
-    arm_rect.x = player.arm_left.rect.x - map.scroll[0]
-    arm_rect.y = player.arm_left.rect.y - map.scroll[1]
+    arm_rect = player.arm_left.hitbox.get_hitbox_rect().copy()
+    arm_rect.x = round(player.arm_left.entity.x - map.scroll[0])
+    arm_rect.y = round(player.arm_left.entity.y - map.scroll[1])
     pygame.draw.rect(display, (255, 0, 0) , arm_rect)
 
     if (controls.is_moving_left): 
-        player.velocity[0] = -2
+        player.movable.velocity[0] = -2
     elif (controls.is_moving_right): 
-        player.velocity[0] = 2
+        player.movable.velocity[0] = 2
 
     if ((controls.is_moving_left or 
         controls.is_moving_right) and 
         player.air_timer == 0):
-        player.set_action(ActionEnum.MOVING)
+        player.sprite.set_action(ActionEnum.MOVING)
     elif (player.air_timer == 0):
-        player.set_action(ActionEnum.IDLE)
+        player.sprite.set_action(ActionEnum.IDLE)
 
     if (controls.is_jumping):
-        player.set_action(ActionEnum.JUMPING)
+        player.sprite.set_action(ActionEnum.JUMPING)
         player.jump()
         controls.is_jumping = False
 
-    player.move(map.tile_rects, mouse_angle)
-    player.arm_left.move_arm(map.tile_rects)
-    player.arm_right.move_arm(map.tile_rects)
+    player.move(mouse_angle)
+    player.arm_left.move_arm(map.entity_hitboxes)
+    player.arm_right.move_arm(map.entity_hitboxes)
     player.render(display, map.scroll)
 
     if (pygame.time.get_ticks() < 3000):

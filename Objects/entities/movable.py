@@ -8,9 +8,9 @@ from objects.entities.hitbox import Hitbox
 from objects.block import Block
 
 class Movable(object):
-    def __init__(self, hitbox):
+    def __init__(self, hitbox: Hitbox):
         self._hitbox: Hitbox = hitbox
-        self.velocity = []
+        self.velocity: list[float] = [0,0]
         self.direction = None
 
     def move(self, tiles: dict[str, Block]) -> CollisionResponse:
@@ -39,9 +39,7 @@ class Movable(object):
                 self._hitbox.entity.y = collided_tile.rect.bottom - self._hitbox.height - self._hitbox.offset_y
                 collision_response.tile_collision_y = TileCollision(collided_tile, CollisionEnum.BOTTOM)
             self.velocity[1] = 0
-
-        self.y = self._hitbox.entity.y
-
+            
         self.apply_opposing_forces(collision_response.tile_collision_y)
         self.update_direction()
 

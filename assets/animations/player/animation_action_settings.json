@@ -1,15 +1,18 @@
 {
     "idle": {
+        "state": 0,
         "numberOfFrames": 1,
         "frameHold": 7,
         "isLoop": true
     },
     "moving": {
+        "state": 1,
         "numberOfFrames": 4,
         "frameHold": 4,
         "isLoop": true
     },
     "jumping": {
+        "state": 2,
         "numberOfFrames": 2,
         "frameHold": 7,
         "isLoop": false

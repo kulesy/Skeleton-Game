@@ -4,7 +4,9 @@ import pygame
 from consts.colourconsts import BLACK
 from models.map.map_model import MapModel, MapSchema
 from objects.disappearing_platforms import DisapearingPlatforms
+from objects.entities.entity import Entity
 from objects.entities.hitbox import Hitbox
+from objects.entities.static import StaticImage
 from objects.opening_platforms import OpeningPlatforms
 from objects.block import Block
 
@@ -15,105 +17,76 @@ class Map:
     
         self.map_model: MapModel = MapSchema().load(map_json)
         self.blocks: dict[str, Block] = {}
-        self.entity_hitboxes: dict[int, Hitbox] = {}
+        self.entity_hitboxes: list[Hitbox] = []
         self.display = display
         self.tile_size = tile_size
-        self.tile_type_textures = {}
-        self.tile_type_rects = {}
-        self.enemy_type_textures = {}
-        self.enemy_type_rects = {}
+        self.block_type_textures = {}
+        self.block_type_rects = {}
+        self.entity_type_textures = {}
+        self.entity_type_rects = {}
         self.scroll = [0,0]
-        self.tile_rects = []
         self.true_scroll: list[float] = [0, 0]
         self.init_tile_types()
         self.opening_platforms : dict[str, OpeningPlatforms] = {}
         self.disapearing_platforms : dict[str, DisapearingPlatforms] = {}
 
     def render(self):
-        self.tile_rects = []
+        self.entity_hitboxes = []
         self.render_map_tiles()
         self.render_map_entities()
 
     def render_map_tiles(self):
-         for block in self.map_model.blocks.values():
-            block_key = f"{block.position[0]};{block.position[1]}"
-            rotation = block.rotation
-            position = block.position.copy()
-            is_visible = True
+         for block_model in self.map_model.blocks.values():
+            rotation = block_model.rotation
+            position = block_model.position.copy()
+            block_key = f"{block_model.position[0]};{block_model.position[1]}"
+            texture: pygame.Surface = self.block_type_textures[block_model.type_id]
+            self.render_surface(pygame.transform.rotate(texture, rotation),
+                                (position[0] * self.tile_size, position[1] * self.tile_size))
 
-            if (block.type_id == 3 and block_key in self.opening_platforms):
-                platform = self.opening_platforms[block_key]
-                if (platform.is_open):
-                    if (block.rotation == 0):
-                        rotation = 90
-                        position[1] -= 1
-                    elif (block.rotation == 90):
-                        rotation = 180
-                        position[0] -= 1
-                    elif (block.rotation == 180):
-                        rotation = 270
-                        position[1] += 1
-                    elif (block.rotation == 270):
-                        rotation = 0
-                        position[0] += 1
-                if (platform.is_closing and 
-                    platform.close_counter <= 300):
-                    platform.close_counter += 1
-                elif (platform.close_counter > 300):
-                    platform.is_open = False
-                    platform.is_closing = False
-                    platform.close_counter = 0
-                else: 
-                    platform.close_counter = 0
-            elif (block.type_id == 3):
-                self.opening_platforms[block_key] = OpeningPlatforms(False)
-            
-            if (block.type_id == 4 and block_key in self.disapearing_platforms):
-                platform = self.disapearing_platforms[block_key]
-                if (platform.has_disapeared):
-                    is_visible = False
-                elif (platform.is_disapearing and 
-                    platform.disapear_counter <= 70):
-                    platform.disapear_counter += 1
-                elif (platform.disapear_counter > 70):
-                    platform.has_disapeared = True
-                    platform.is_disapearing = False
-                    platform.disapear_counter = 0
-            elif (block.type_id == 4):
-                self.disapearing_platforms[block_key] = DisapearingPlatforms()
-
-            if (is_visible):
-                texture: pygame.Surface = self.tile_type_textures[block.type_id]
-                self.render_surface(pygame.transform.rotate(texture, rotation), self.get_map_position(position))
+            if (block_key not in self.blocks):
+                block = Block(block_model.position[0],
+                              block_model.position[1], 
+                              self.tile_size, 
+                              block_model.rotation)
                 
-                tile_rect: pygame.Rect = self.tile_type_rects[block.type_id]
-
-                rotated_rect = self.get_rotated_rect(tile_rect.copy(), rotation)
-                
-                self.tile_rects.append(pygame.Rect(position[0] * self.tile_size + rotated_rect.x,
-                                                    position[1] * self.tile_size + rotated_rect.y, 
-                                                    rotated_rect.width, rotated_rect.height))
+                self.blocks[block_key] = block
 
     def render_map_entities(self):
-        for block in self.map_model.blocks.values():
-            block_key = f"{block.position[0]};{block.position[1]}"
-            rotation = block.rotation
-            position = block.position.copy()
+        for entity_model in self.map_model.entities.values():
+            rotation = entity_model.rotation
+            position = entity_model.position.copy()
             is_visible = True
+            entity_model_key = f"{entity_model.position[0]};{entity_model.position[1]}"
 
-            if (block.type_id == 3 and block_key in self.opening_platforms):
-                platform = self.opening_platforms[block_key]
+            texture: pygame.Surface = self.entity_type_textures[entity_model.type_id]
+            
+            tile_rect: pygame.Rect = self.entity_type_rects[entity_model.type_id]
+
+            rotated_rect = self.get_rotated_rect(tile_rect.copy(), rotation)
+            
+            entity = Entity()
+            entity.x = position[0] * self.tile_size
+            entity.y = position[1] * self.tile_size
+            static_image = StaticImage(entity, texture)
+
+            hitbox = Hitbox(entity,
+                            rotated_rect.x, rotated_rect.y, 
+                            rotated_rect.width, rotated_rect.height)
+
+            if (entity_model.type_id == 3):
+                platform = self.opening_platforms[entity_model_key]
                 if (platform.is_open):
-                    if (block.rotation == 0):
+                    if (entity_model.rotation == 0):
                         rotation = 90
                         position[1] -= 1
-                    elif (block.rotation == 90):
+                    elif (entity_model.rotation == 90):
                         rotation = 180
                         position[0] -= 1
-                    elif (block.rotation == 180):
+                    elif (entity_model.rotation == 180):
                         rotation = 270
                         position[1] += 1
-                    elif (block.rotation == 270):
+                    elif (entity_model.rotation == 270):
                         rotation = 0
                         position[0] += 1
                 if (platform.is_closing and 
@@ -125,11 +98,11 @@ class Map:
                     platform.close_counter = 0
                 else: 
                     platform.close_counter = 0
-            elif (block.type_id == 3):
-                self.opening_platforms[block_key] = OpeningPlatforms(False)
+            elif (entity_model.type_id == 3):
+                self.opening_platforms[entity_model_key] = OpeningPlatforms(entity, static_image, hitbox, False)
             
-            if (block.type_id == 4 and block_key in self.disapearing_platforms):
-                platform = self.disapearing_platforms[block_key]
+            if (entity_model.type_id == 4 and entity_model_key in self.disapearing_platforms):
+                platform = self.disapearing_platforms[entity_model_key]
                 if (platform.has_disapeared):
                     is_visible = False
                 elif (platform.is_disapearing and 
@@ -139,40 +112,33 @@ class Map:
                     platform.has_disapeared = True
                     platform.is_disapearing = False
                     platform.disapear_counter = 0
-            elif (block.type_id == 4):
-                self.disapearing_platforms[block_key] = DisapearingPlatforms()
+            elif (entity_model.type_id == 4):
+                self.disapearing_platforms[entity_model_key] = DisapearingPlatforms(entity, static_image, hitbox)
 
             if (is_visible):
-                texture: pygame.Surface = self.tile_type_textures[block.type_id]
-                self.render_surface(pygame.transform.rotate(texture, rotation), self.get_map_position(position))
+                self.entity_hitboxes.append(hitbox)
                 
-                tile_rect: pygame.Rect = self.tile_type_rects[block.type_id]
-
-                rotated_rect = self.get_rotated_rect(tile_rect.copy(), rotation)
-                
-                self.tile_rects.append(pygame.Rect(position[0] * self.tile_size + rotated_rect.x,
-                                                    position[1] * self.tile_size + rotated_rect.y, 
-                                                    rotated_rect.width, rotated_rect.height))
-                
+                self.render_surface(pygame.transform.rotate(texture, rotation), 
+                                                           (position[0] * self.tile_size, position[1] * self.tile_size))
     def render_surface(self, surface, position):
         self.display.blit(surface, self.get_map_position(position))
 
     def init_tile_types(self):
-        for tile_type in self.map_model.tile_types:
-            texture_image = pygame.image.load(tile_type.texture_path)
+        for block_type in self.map_model.block_types:
+            texture_image = pygame.image.load(block_type.texture_path)
             texture_image.set_colorkey(BLACK)
             texture_image.convert_alpha()
-            tile_rect = self.get_non_transparent_bounds(texture_image)
-            self.tile_type_textures[tile_type.tile_type_id] = texture_image
-            self.tile_type_rects[tile_type.tile_type_id] = tile_rect
+            block_rect = self.get_non_transparent_bounds(texture_image)
+            self.block_type_textures[block_type.id] = texture_image
+            self.block_type_rects[block_type.id] = block_rect
 
-        for enemy_type in self.map_model.enemy_types:
-            texture_image = pygame.image.load(enemy_type.texture_path)
+        for entity_type in self.map_model.entity_types:
+            texture_image = pygame.image.load(entity_type.texture_path)
             texture_image.set_colorkey(BLACK)
             texture_image.convert_alpha()
-            enemy_rect = self.get_non_transparent_bounds(texture_image)
-            self.enemy_type_textures[enemy_type.enemy_type_id] = texture_image
-            self.enemy_type_rects[enemy_type.enemy_type_id] = enemy_rect
+            entity_rect = self.get_non_transparent_bounds(texture_image)
+            self.entity_type_textures[entity_type.id] = texture_image
+            self.entity_type_rects[entity_type.id] = entity_rect
 
     def update_scroll_pos(self, player_x, player_y, player_width, player_height):
         self.true_scroll[0] += (player_x - self.true_scroll[0] - 150 + int(player_width / 2))/20
@@ -232,6 +198,6 @@ class Map:
         return rect
     
     def get_map_position(self, position):
-        map_position_x = position[0] * self.tile_size - self.scroll[0]
-        map_position_y = position[1] * self.tile_size - self.scroll[1]
+        map_position_x = position[0] - self.scroll[0]
+        map_position_y = position[1] - self.scroll[1]
         return (map_position_x, map_position_y)
