@@ -48,34 +48,27 @@ while True:
     player.arm_left.update_arm_state(mouse_angle)
     player.arm_right.update_arm_state(mouse_angle)
 
-    player.handle_charging_throw(display, map.scroll, controls.is_charging_throw, mouse_angle, player.arm_left)
+    player.handle_charging_throw(controls.is_charging_throw, mouse_angle, player.arm_left)
     if (player.arm_left.arm_state != ArmStateEnum.ATTACHED):
-        player.handle_charging_throw(display, map.scroll, controls.is_charging_throw, mouse_angle, player.arm_right)
+        player.handle_charging_throw(controls.is_charging_throw, mouse_angle, player.arm_right)
         
     if (controls.is_respawning):
         current_spawn_point = spawn_points[0]
         for spawn_point in spawn_points:
             if (player.entity.y <= spawn_point[1] * 16):
                 current_spawn_point = spawn_point
-        player = Player(map)
+        player.reset_player()
         controls.is_respawning = False
 
-    if (player.entity.y > 10000):
-        player = Player(map)
-
-    ## ARM HITBOX
-    arm_rect = player.arm_left.hitbox.get_hitbox_rect().copy()
-    arm_rect.x = round(player.arm_left.entity.x - map.scroll[0])
-    arm_rect.y = round(player.arm_left.entity.y - map.scroll[1])
-    pygame.draw.rect(display, (255, 0, 0) , arm_rect)
+    if (player.entity.y > 1000):
+        player.reset_player()
 
     if (controls.is_moving_left): 
         player.movable.velocity[0] = -2
     elif (controls.is_moving_right): 
         player.movable.velocity[0] = 2
 
-    if ((controls.is_moving_left or 
-        controls.is_moving_right) and 
+    if ((controls.is_moving_left or controls.is_moving_right) and 
         player.air_timer == 0):
         player.sprite.set_action(ActionEnum.MOVING)
     elif (player.air_timer == 0):
@@ -87,9 +80,9 @@ while True:
         controls.is_jumping = False
 
     player.move(mouse_angle)
-    player.arm_left.move_arm(map.entity_hitboxes)
-    player.arm_right.move_arm(map.entity_hitboxes)
-    player.render(display, map.scroll)
+    player.arm_left.move_arm()
+    player.arm_right.move_arm()
+    player.handle_render()
 
     if (pygame.time.get_ticks() < 3000):
         font.render("Press R to restart", display, (150 - (font.width("Press R to restart")/2) , 40))

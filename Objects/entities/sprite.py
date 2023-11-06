@@ -6,9 +6,10 @@ from enums.global_enums import ActionEnum
 
 from models.animation_action import AnimationAction
 from objects.entities.entity import Entity
+from objects.entities.image import Image
 
 
-class Sprite(object):
+class Sprite(Image):
     def __init__(self, entity, type):
         self.entity: Entity = entity
         self.type = type
@@ -19,6 +20,9 @@ class Sprite(object):
         self.current_frame = self.get_current_frame()
         entity.width = self.current_frame.get_width()
         entity.height = self.current_frame.get_height()
+
+    def get_surface(self):
+        return self.get_current_frame()
 
     def get_current_frame(self):
         animation_action: AnimationAction = self.animation_actions[self.action_state]
@@ -33,8 +37,7 @@ class Sprite(object):
         else:
             self.frame_hold__count += 1
         
-        current_frame_flipped = pygame.transform.flip(current_frame, self.entity.is_flipped, False)
-        return current_frame_flipped
+        return current_frame
 
     def get_animation_actions(self, type: str) -> dict[ActionEnum, AnimationAction]:
         animations_path = f'assets/animations/{type}'

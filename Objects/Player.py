@@ -2,25 +2,32 @@ import math
 
 import pygame
 from consts.physicconsts import PhysicConsts
+from dtos.collisiondtos.collision_response import CollisionResponse
+from dtos.collisiondtos.tile_collision import HitboxCollision
 from enums.global_enums import *
 from objects.arm import Arm
 from objects.entities.entity import Entity
 from objects.entities.hitbox import Hitbox
 from objects.entities.movable import Movable
+from objects.entities.render import Render
 from objects.entities.sprite import Sprite
 from objects.map import Map
 from objects.opening_platforms import OpeningPlatforms
 
 class Player:
     def __init__(self, map):
+        self.start_pos = (200, 100)
         self.entity = Entity()
-        self.entity.x = 200
-        self.entity.y = 130
-        self.sprite = Sprite(self.entity , "player")
+        self.entity.x = self.start_pos[0]
+        self.entity.y = self.start_pos[1]
+        self.sprite = Sprite(self.entity, "player")
         self.hitbox = Hitbox(self.entity, 0, 0,
                              self.entity.width, self.entity.height)
-        self.movable = Movable(self.hitbox)
+        self.movable = Movable(self.hitbox, map)
+        
         self.map: Map = map
+        self.render = Render(self.map.tile_size, self.hitbox, self.sprite, 2, False)
+        self.map.add_to_renders(self.render)
 
         self.direction: DirectionEnum = DirectionEnum.NONE
 
@@ -34,26 +41,29 @@ class Player:
         self.air_timer:int = 0
     
     def move(self, mouse_angle) -> None:
-        collision_response = self.movable.move(self.map.blocks)
+        hitbox_collisions = self.movable.move()
+        platform_collision = next((hitbox for hitbox in hitbox_collisions if hitbox.hitbox.entity.is_platform), None)
 
-        if (collision_response.tile_collision_y != None and
-            collision_response.tile_collision_y.side == CollisionEnum.TOP):
-            self.air_timer = 0
-            # collided_tile_key = f"{int(player_collision.position[0]/self.map.tile_size)};{int(player_collision.position[1]/self.map.tile_size)}"
-            # if (collided_tile_key in self.map.disapearing_platforms):
-            #     self.map.disapearing_platforms[collided_tile_key].is_disapearing = True
+        if (platform_collision != None):
+            if (platform_collision.side == CollisionEnum.TOP):
+                self.air_timer = 0
+                # collided_tile_key = f"{int(player_collision.position[0]/self.map.tile_size)};{int(player_collision.position[1]/self.map.tile_size)}"
+                # if (collided_tile_key in self.map.disapearing_platforms):
+                #     self.map.disapearing_platforms[collided_tile_key].is_disapearing = True
 
-            # if (collided_tile_key in self.map.map_model.tiles and 
-            #     self.map.map_model.tiles[collided_tile_key].tile_type_id == 5):
-            #     self.friction = 0.04
-            # else:
-            #     self.friction = self.physics_constants.friction
-        else:
-            # self.friction = self.physics_constants.friction
-            self.air_timer += 1
+                # if (collided_tile_key in self.map.map_model.tiles and 
+                #     self.map.map_model.tiles[collided_tile_key].tile_type_id == 5):
+                #     self.friction = 0.04
+                # else:
+                #     self.friction = self.physics_constants.friction
+                self.movable.opposing_force_x = 2
+            else:
+                # self.friction = self.physics_constants.friction
+                self.air_timer += 1
 
-        self.check_arm_collisions(self.arm_left)
-        self.check_arm_collisions(self.arm_right)
+        if (hitbox_collisions != None):
+            self.check_arm_collisions(self.arm_left, hitbox_collisions)
+            self.check_arm_collisions(self.arm_right, hitbox_collisions)
 
         self.update_direction(mouse_angle)
 
@@ -61,13 +71,12 @@ class Player:
 
         return
     
-    def check_arm_collisions(self, arm: Arm):
+    def check_arm_collisions(self, arm: Arm, hitbox_collisions: list[HitboxCollision]):
         if (arm.arm_state == ArmStateEnum.STUCK):
-            arm_hitbox_rect = arm.hitbox.get_hitbox_rect()
-            player_hitbox_rect = self.hitbox.get_hitbox_rect()
-            arm_player_collision = arm_hitbox_rect.colliderect(player_hitbox_rect)
-            if (arm_player_collision):
-                arm.reset_arm()
+            for collision in hitbox_collisions:
+                if (collision.hitbox.entity.id == arm.entity.id):
+                    arm.reset_arm()
+                    break
         else: 
             for opened_platform in arm.arm_opened_platforms:
                 if (opened_platform.is_open):
@@ -83,24 +92,24 @@ class Player:
     def connect_arm_to_player(self, arm : Arm):
         x_offset = self.arm_offset[0]
         y_offset = self.arm_offset[1]
-        if (self.entity.is_flipped):
-            x_offset += (self.entity.width / 2) - 1
+        if (self.render.is_flipped):
+            x_offset += (self.entity.width / 2)
 
         arm.entity.x = self.entity.x + x_offset
         arm.entity.y = self.entity.y + y_offset
+        arm.hitbox.offset_x = 0
+        arm.hitbox.offset_y = arm.entity.height//2
 
-    def render(self, display, scroll) -> None:
-        if (self.entity.is_flipped):
-            self.arm_left.render(display, scroll)
+    def handle_render(self) -> None:
+        if (self.render.is_flipped):
+            self.arm_left.render.z_level = 1
+            self.arm_right.render.z_level = 3
         else:
-            self.arm_right.render(display, scroll)
+            self.arm_left.render.z_level = 3
+            self.arm_right.render.z_level = 1
 
-        self.map.render_surface(self.sprite.current_frame, (self.entity.x, self.entity.y))
-        
-        if (self.entity.is_flipped):
-            self.arm_right.render(display, scroll)
-        else:
-            self.arm_left.render(display, scroll)
+        self.arm_left.handle_render()
+        self.arm_right.handle_render()
         return
 
     def jump(self) -> None:
@@ -117,14 +126,16 @@ class Player:
             self.movable.direction = DirectionEnum.LEFT
 
         if (self.movable.direction == DirectionEnum.RIGHT):
-            self.entity.is_flipped = False
+            self.render.is_flipped = False
         elif (self.movable.direction == DirectionEnum.LEFT):
-            self.entity.is_flipped = True
+            self.render.is_flipped = True
+        
+        self.arm_left.flip_arm(self.movable.direction)
+        self.arm_right.flip_arm(self.movable.direction)
 
         return
     
-    def handle_charging_throw(self, display, scroll, 
-                              is_charging_throw, mouse_angle, arm: Arm) -> None:
+    def handle_charging_throw(self, is_charging_throw, mouse_angle, arm: Arm) -> None:
         if (self.air_timer > 0):
             arm.charge = 0
             return
@@ -138,25 +149,33 @@ class Player:
                 if (arm.charge <= 100):
                     arm.charge += 2.5
 
-                self.render_arm_trajectory(display, scroll, arm)
+                self.render_arm_trajectory(arm)
             else:
                 if (arm.charge > 0):
                     arm.charge -= 25
                     if (arm.charge <= 0):
                         arm.arm_state = ArmStateEnum.DETACHED
+                        arm.render.is_anchored = False
                         arm.charge = 0
         
         return
 
-    def render_arm_trajectory(self, display, scroll, arm: Arm) -> None:
+    def render_arm_trajectory(self, arm: Arm) -> None:
         if (arm.arm_state == ArmStateEnum.ATTACHED):
             arm_trajectory_velocity = arm.movable.velocity.copy()
             arm_trajectory_pos = [arm.entity.x, arm.entity.y]
             for i in range(20):
-                trajectory_rect = pygame.Rect(arm_trajectory_pos[0] - scroll[0], arm_trajectory_pos[1]- scroll[1], 1, 1)
+                arm_map_pos = self.map.get_map_position(arm_trajectory_pos)
+                trajectory_rect = pygame.Rect(arm_map_pos[0], arm_map_pos[1], 1, 1)
                 arm_trajectory_pos[0] += arm_trajectory_velocity[0]
                 arm_trajectory_pos[1] += arm_trajectory_velocity[1]
                 arm_trajectory_velocity[1] += PhysicConsts.GRAVITY
-                pygame.draw.rect(display, (255, 255, 255) , trajectory_rect)
+                pygame.draw.rect(self.map.display, (255, 255, 255) , trajectory_rect)
         
         return
+    
+    def reset_player(self):
+        self.entity.x = self.start_pos[0]
+        self.entity.y = self.start_pos[1]
+        self.arm_left.reset_arm()
+        self.arm_right.reset_arm()

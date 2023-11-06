@@ -1,61 +1,77 @@
 from typing import Optional
 from consts.physicconsts import PhysicConsts
-from dtos.collisiondtos.tile_collision import TileCollision
+from dtos.collisiondtos.tile_collision import HitboxCollision
 from dtos.collisiondtos.collision_response import CollisionResponse
 from enums.global_enums import CollisionEnum, DirectionEnum
 from objects.entities.entity import Entity
 from objects.entities.hitbox import Hitbox
-from objects.block import Block
+from objects.block import Platform
+from objects.map import Map
 
 class Movable(object):
-    def __init__(self, hitbox: Hitbox):
+    def __init__(self, hitbox: Hitbox, map: Map):
+        self._map: Map = map
         self._hitbox: Hitbox = hitbox
         self.velocity: list[float] = [0,0]
         self.direction = None
+        self.opposing_force_x = 0
 
-    def move(self, tiles: dict[str, Block]) -> CollisionResponse:
-        collision_response = CollisionResponse()
-        
+    def move(self) -> list[HitboxCollision]:
         self._hitbox.entity.x += self.velocity[0]
-        collided_tile = self.collision_test(list(tiles.values()))
 
-        if (collided_tile != None):
-            if self.velocity[0] > 0:
-                self._hitbox.entity.x = collided_tile.rect.right + self._hitbox.width + self._hitbox.offset_x
-                collision_response.tile_collision_x = TileCollision(collided_tile, CollisionEnum.RIGHT)
-            elif self.velocity[0] < 0:
-                self._hitbox.entity.x = collided_tile.rect.left - self._hitbox.width - self._hitbox.offset_x
-                collision_response.tile_collision_x = TileCollision(collided_tile, CollisionEnum.LEFT)
-            self.velocity[0] = 0
+        hitbox_collisions_x: list[HitboxCollision] = []
 
-        self._hitbox.entity.y += self.velocity[1]
-        collided_tile = self.collision_test(list(tiles.values()))
+        if self.velocity[0] > 0:
+            hitbox_collisions_x = self.collision_handler(DirectionEnum.RIGHT)
+        elif self.velocity[0] < 0:
+            hitbox_collisions_x = self.collision_handler(DirectionEnum.LEFT)
 
-        if (collided_tile != None):
-            if self.velocity[1] > 0:
-                self._hitbox.entity.y = collided_tile.rect.top + self._hitbox.height + self._hitbox.offset_y
-                collision_response.tile_collision_y = TileCollision(collided_tile, CollisionEnum.TOP)
-            elif self.velocity[1] < 0:
-                self._hitbox.entity.y = collided_tile.rect.bottom - self._hitbox.height - self._hitbox.offset_y
-                collision_response.tile_collision_y = TileCollision(collided_tile, CollisionEnum.BOTTOM)
-            self.velocity[1] = 0
-            
-        self.apply_opposing_forces(collision_response.tile_collision_y)
         self.update_direction()
 
-        return collision_response
+        platform_x_collision = next((collision for collision in hitbox_collisions_x if collision.hitbox.entity.is_platform), None)
+        self.apply_opposing_forces_x(platform_x_collision)
+
+        self._hitbox.entity.y += self.velocity[1]
+
+        hitbox_collisions_y: list[HitboxCollision] = []
+
+        if self.velocity[1] > 0:
+            hitbox_collisions_y = self.collision_handler(DirectionEnum.DOWN)
+        elif self.velocity[1] < 0:
+            hitbox_collisions_y = self.collision_handler(DirectionEnum.UP)
+            
+        platform_y_collision = next((collision for collision in hitbox_collisions_y if collision.hitbox.entity.is_platform), None)
+        self.apply_opposing_forces_y(platform_y_collision)
+
+        return hitbox_collisions_x + hitbox_collisions_y
     
-    def apply_opposing_forces(self, tile_collision_y: Optional[TileCollision]) -> None:
-        if (self.velocity[0] != 0 and tile_collision_y != None and tile_collision_y.side == CollisionEnum.TOP):
+    def apply_opposing_forces_x(self, platform_collision_x: Optional[HitboxCollision]) -> None:
+        if (platform_collision_x != None):
+            if (platform_collision_x.side == CollisionEnum.LEFT):
+                self._hitbox.entity.x = platform_collision_x.hitbox.get_hitbox_rect().left - self._hitbox.width - self._hitbox.offset_x
+            elif (platform_collision_x.side == CollisionEnum.RIGHT):
+                self._hitbox.entity.x = platform_collision_x.hitbox.get_hitbox_rect().right - self._hitbox.offset_x
+
+        # Opposing forces x
+        if (self.velocity[0] != 0):
             if (self.direction == DirectionEnum.RIGHT):
-                self.velocity[0] -= tile_collision_y.tile.friction
-                if (self.velocity[0] < 0):
+                self.velocity[0] -= self.opposing_force_x
+                if (self.velocity[0] <= 0):
                     self.velocity[0] = 0
-            elif (self.direction == DirectionEnum.LEFT):
-                self.velocity[0] += tile_collision_y.tile.friction
-                if (self.velocity[0] > 0):
+            if (self.direction == DirectionEnum.LEFT):
+                self.velocity[0] += self.opposing_force_x
+                if (self.velocity[0] >= 0):
                     self.velocity[0] = 0
+
+    def apply_opposing_forces_y(self, platform_collision_y: Optional[HitboxCollision]) -> None:
+        if (platform_collision_y != None):
+            if platform_collision_y.side == CollisionEnum.TOP:
+                self._hitbox.entity.y = platform_collision_y.hitbox.get_hitbox_rect().top - self._hitbox.height - self._hitbox.offset_y
+            elif platform_collision_y.side == CollisionEnum.BOTTOM:
+                self._hitbox.entity.y = platform_collision_y.hitbox.get_hitbox_rect().bottom - self._hitbox.offset_y
+                self.velocity[1] = 0
         
+        # Opposing forces y
         self.velocity[1] += PhysicConsts.GRAVITY
         if (self.velocity[1] > PhysicConsts.TERMINAL_VELOCITY):
             self.velocity[1] = PhysicConsts.TERMINAL_VELOCITY
@@ -68,10 +84,20 @@ class Movable(object):
         elif (self.velocity[0] == 0):
             self.direction = DirectionEnum.NONE
 
-    def collision_test(self, tile_list: list[Block]):
-        for tile in tile_list:
-            if tile.rect.colliderect(self._hitbox.get_hitbox_rect()):
-                return tile
-        
-        return None
+    def collision_handler(self, direction):
+        hitbox_collisions = []
 
+        for render in self._map.get_renders():
+            if (render.hitbox.get_hitbox_rect().colliderect(self._hitbox.get_hitbox_rect()) and
+                render.hitbox.entity.id != self._hitbox.entity.id):
+
+                if (direction == DirectionEnum.RIGHT):
+                    hitbox_collisions.append(HitboxCollision(render.hitbox, CollisionEnum.LEFT))
+                elif (direction == DirectionEnum.LEFT):
+                    hitbox_collisions.append(HitboxCollision(render.hitbox, CollisionEnum.RIGHT))
+                elif (direction == DirectionEnum.UP):
+                    hitbox_collisions.append(HitboxCollision(render.hitbox, CollisionEnum.BOTTOM))
+                elif (direction == DirectionEnum.DOWN):
+                    hitbox_collisions.append(HitboxCollision(render.hitbox, CollisionEnum.TOP))
+        
+        return hitbox_collisions

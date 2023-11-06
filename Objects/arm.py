@@ -1,10 +1,11 @@
 import math
 import pygame
-from enums.global_enums import ArmStateEnum, CollisionEnum
+from enums.global_enums import ArmStateEnum, CollisionEnum, DirectionEnum
 from objects.entities.entity import Entity
 from objects.entities.hitbox import Hitbox
 from objects.entities.movable import Movable
-from objects.entities.static import StaticImage
+from objects.entities.render import Render
+from objects.entities.static import Static
 from objects.map import Map
 from objects.opening_platforms import OpeningPlatforms
 
@@ -14,17 +15,20 @@ class Arm():
         self.entity = Entity()
         self.entity.x = player_entity.x
         self.entity.y = player_entity.y
-        self.static_image = StaticImage(self.entity, pygame.image.load('assets/animations/arm/idle/0.png'))
-        hitbox_width = 2
-        hitbox_height = 2
+        self.image_surface = pygame.image.load('assets/animations/arm/idle/0.png')
+        self.static_image = Static(self.entity, self.image_surface)
+        hitbox_width = 4
+        hitbox_height = 4
         self.hitbox = Hitbox(self.entity, 
-                             self.entity.width/2 - hitbox_width/2,
-                             self.entity.width/2 - hitbox_height/2,
+                             0,
+                             0,
                              hitbox_width, hitbox_height)
+        self.render = Render(self.map.tile_size, self.hitbox, self.static_image, 1, 
+                             False, True, (0, (self.image_surface.get_height() // 2)))
+        self.map.add_to_renders(self.render)
         
-        self.movable = Movable(self.hitbox)
-
-        self.arm_angle: float = 0
+        self.movable = Movable(self.hitbox, map)
+        
         self.arm_max_distance: int = 6
         self.arm_state: ArmStateEnum = ArmStateEnum.ATTACHED
         self.arm_opened_platforms: list[OpeningPlatforms] = [] 
@@ -32,30 +36,31 @@ class Arm():
         self.arm_stuck_timer: float = 0
 
         
-    def move_arm(self, map_tile_rects) -> None:
+    def move_arm(self) -> None:
         if (self.arm_state != ArmStateEnum.DETACHED):
             return
 
-        collision_response = self.movable.move(map_tile_rects)
-
-        if (collision_response.tile_collision_x != None or collision_response.tile_collision_y != None):
+        hitbox_collisions = self.movable.move()
+        platform_collision = next((hitbox for hitbox in hitbox_collisions if hitbox.hitbox.entity.is_platform), None)
+        
+        if (platform_collision != None):
             self.arm_state = ArmStateEnum.STUCK
-
-        if (collision_response.tile_collision_x != None):
-            if (collision_response.tile_collision_x.side == CollisionEnum.LEFT): 
-                self.entity.x -= (self.entity.height / 4)
-                self.arm_angle = 90
-            elif (collision_response.tile_collision_x.side == CollisionEnum.RIGHT):
-                self.entity.x += (self.entity.height / 4)
-                self.arm_angle = 90
-
-        if (collision_response.tile_collision_y != None):
-            if (collision_response.tile_collision_y.side == CollisionEnum.TOP): 
-                self.entity.y += (self.entity.height / 4)
-                self.arm_angle = 0
-            elif (collision_response.tile_collision_y.side == CollisionEnum.BOTTOM): 
-                self.entity.y -= (self.entity.height / 4)
-                self.arm_angle = 180
+            # if (platform_collision.side == CollisionEnum.LEFT): 
+            #     self.entity.x += 3
+            #     self.render.rotation = 90
+            #     self.hitbox.offset_x = 0
+            # elif (platform_collision.side == CollisionEnum.RIGHT):
+            #     self.entity.x -= 3
+            #     self.render.rotation = 90
+            #     self.hitbox.offset_x = self.entity.height
+            # if (platform_collision.side == CollisionEnum.TOP): 
+            #     self.entity.y +=  3
+            #     self.render.rotation = 0
+            #     self.hitbox.offset_y = 0
+            # elif (platform_collision.side == CollisionEnum.BOTTOM): 
+            #     self.entity.y -= 3
+            #     self.render.rotation = 180
+            #     self.hitbox.offset_y = self.entity.height
 
             # collided_tile_key = f"{int(collision_response.position[0]/self.map.tile_size)};{int(collision_response.position[1]/self.map.tile_size)}"
             # if (collided_tile_key in self.map.map_model.tiles):
@@ -64,40 +69,30 @@ class Arm():
             #         self.map.opening_platforms[linked_tile_key].is_closing = False
             #         self.map.opening_platforms[linked_tile_key].is_open = True
             #         self.arm_opened_platforms.append(self.map.opening_platforms[linked_tile_key])
-                
-            self.velocity[0] = 0
-            self.velocity[1] = 0
 
         return
     
-    def render(self, display, scroll) -> None:
-        arm_surface = self.static_image.image
-        player_arm_image_loc = [self.entity.x, self.entity.y]
-        
+    def handle_render(self) -> None:
         if (self.arm_state != ArmStateEnum.STUCK):
             arm_surface = pygame.Surface((self.static_image.image.get_width() * 2, self.static_image.image.get_height() * 2))
             arm_surface.set_colorkey((0, 0, 0))
             arm_surface.blit(self.static_image.image, (0, self.static_image.image.get_height()))
 
-        arm_surface = pygame.transform.flip(pygame.transform.rotate(arm_surface, self.arm_angle), self.entity.is_flipped, False)
-        player_arm_image_loc = [round(self.entity.x) - int(arm_surface.get_width() / 2), self.entity.y - int(arm_surface.get_height() / 2)]
-        
-        display.blit(arm_surface, (player_arm_image_loc[0]- scroll[0], player_arm_image_loc[1] - scroll[1]))
         return
     
     def update_arm_state(self, mouse_angle) -> None:
         arm_display_angle = mouse_angle - (math.pi/2)
         # Attached to player
         if (self.arm_state == ArmStateEnum.ATTACHED):
-            self.arm_angle = math.degrees(arm_display_angle)
-            if (self.entity.is_flipped):
-                self.arm_angle += self.charge
-            if (self.entity.is_flipped == False):
-                self.arm_angle -= self.charge
-                self.arm_angle = -self.arm_angle
+            self.render.rotation = math.degrees(arm_display_angle)
+            if (self.render.is_flipped):
+                self.render.rotation += self.charge
+            if (self.render.is_flipped == False):
+                self.render.rotation -= self.charge
+                self.render.rotation = -self.render.rotation
         # Thrown by player
         elif (self.arm_state == ArmStateEnum.DETACHED):
-            self.arm_angle -= 20
+            self.render.rotation -= 20
         # Stuck in wall
         elif (self.arm_state == ArmStateEnum.STUCK):
             self.velocity = [0, 0]       
@@ -108,6 +103,12 @@ class Arm():
                  
         return
     
+    def flip_arm(self, player_direction):
+        if (self.arm_state == ArmStateEnum.ATTACHED and player_direction == DirectionEnum.LEFT):
+            self.render.is_flipped = True
+        elif(self.arm_state == ArmStateEnum.ATTACHED and player_direction == DirectionEnum.RIGHT):
+            self.render.is_flipped = False
+
     def recall_arm(self) -> None:
         if (self.arm_state == ArmStateEnum.STUCK):
             self.reset_arm()
@@ -115,5 +116,6 @@ class Arm():
     def reset_arm(self) -> None:
         self.arm_stuck_timer = 0
         self.arm_state = ArmStateEnum.ATTACHED
+        self.render.is_anchored = True
         return
     

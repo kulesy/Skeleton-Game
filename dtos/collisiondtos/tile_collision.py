@@ -1,7 +1,7 @@
 from enums.global_enums import CollisionEnum
-from objects.block import Block
+from objects.entities.hitbox import Hitbox
 
-class TileCollision: 
-    def __init__(self, tile: Block, side: CollisionEnum):
-      self.tile: Block = tile
+class HitboxCollision: 
+    def __init__(self, tile: Hitbox, side: CollisionEnum):
+      self.hitbox: Hitbox = tile
       self.side: CollisionEnum = side

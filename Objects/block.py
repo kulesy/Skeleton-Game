@@ -1,10 +1,10 @@
-import pygame
+from objects.entities.entity import Entity
+from objects.entities.hitbox import Hitbox
+from objects.entities.static import Static
 
 
-class Block(object):
-    def __init__(self, x, y, block_size, rotation=0):
-        self.x = x * block_size
-        self.y = y * block_size 
-        self.rect = pygame.Rect(x, y, block_size, block_size)
-        self.rotation = rotation
-        self.friction = 0.2
+class Platform(object):
+    def __init__(self, static_image, hitbox):
+        self.hitbox: Hitbox = hitbox
+        self.static_image: Static = static_image
+        self.friction = 0.5
