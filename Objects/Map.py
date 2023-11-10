@@ -42,12 +42,11 @@ class Map:
                                 (render.hitbox.entity.x,  render.hitbox.entity.y))
             
             # Render hitboxes
-            # if (render.hitbox.entity.id == 56 or render.hitbox.entity.id == 57):
-                # hitbox_rect = render.hitbox.get_hitbox_rect().copy()
-                # hitbox_map_pos = self.get_map_position((hitbox_rect.x, hitbox_rect.y))
-                # hitbox_rect.x = hitbox_map_pos[0]
-                # hitbox_rect.y = hitbox_map_pos[1]
-                # pygame.draw.rect(self.display, (255, 0, 0), hitbox_rect)
+            # hitbox_rect = render.hitbox.get_hitbox_rect().copy()
+            # hitbox_map_pos = self.get_map_position((hitbox_rect.x, hitbox_rect.y))
+            # hitbox_rect.x = hitbox_map_pos[0]
+            # hitbox_rect.y = hitbox_map_pos[1]
+            # pygame.draw.rect(self.display, (255, 0, 0), hitbox_rect)
 
             
     def render_surface(self, surface, position):

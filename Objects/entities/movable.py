@@ -2,7 +2,7 @@ from typing import Optional
 from consts.physicconsts import PhysicConsts
 from dtos.collisiondtos.tile_collision import HitboxCollision
 from dtos.collisiondtos.collision_response import CollisionResponse
-from enums.global_enums import CollisionEnum, DirectionEnum
+from enums.global_enums import AxisEnum, CollisionEnum, DirectionEnum
 from objects.entities.entity import Entity
 from objects.entities.hitbox import Hitbox
 from objects.block import Platform
@@ -19,12 +19,7 @@ class Movable(object):
     def move(self) -> list[HitboxCollision]:
         self._hitbox.entity.x += self.velocity[0]
 
-        hitbox_collisions_x: list[HitboxCollision] = []
-
-        if self.velocity[0] > 0:
-            hitbox_collisions_x = self.collision_handler(DirectionEnum.RIGHT)
-        elif self.velocity[0] < 0:
-            hitbox_collisions_x = self.collision_handler(DirectionEnum.LEFT)
+        hitbox_collisions_x: list[HitboxCollision] = self.collision_handler(AxisEnum.X)
 
         self.update_direction()
 
@@ -33,12 +28,7 @@ class Movable(object):
 
         self._hitbox.entity.y += self.velocity[1]
 
-        hitbox_collisions_y: list[HitboxCollision] = []
-
-        if self.velocity[1] > 0:
-            hitbox_collisions_y = self.collision_handler(DirectionEnum.DOWN)
-        elif self.velocity[1] < 0:
-            hitbox_collisions_y = self.collision_handler(DirectionEnum.UP)
+        hitbox_collisions_y: list[HitboxCollision] = self.collision_handler(AxisEnum.Y)
             
         platform_y_collision = next((collision for collision in hitbox_collisions_y if collision.hitbox.entity.is_platform), None)
         self.apply_opposing_forces_y(platform_y_collision)
@@ -84,20 +74,19 @@ class Movable(object):
         elif (self.velocity[0] == 0):
             self.direction = DirectionEnum.NONE
 
-    def collision_handler(self, direction):
+    def collision_handler(self, axis):
         hitbox_collisions = []
 
         for render in self._map.get_renders():
             if (render.hitbox.get_hitbox_rect().colliderect(self._hitbox.get_hitbox_rect()) and
                 render.hitbox.entity.id != self._hitbox.entity.id):
-
-                if (direction == DirectionEnum.RIGHT):
+                if (axis == AxisEnum.X and (self._hitbox.entity.x <= render.hitbox.entity.x)):
                     hitbox_collisions.append(HitboxCollision(render.hitbox, CollisionEnum.LEFT))
-                elif (direction == DirectionEnum.LEFT):
+                elif (axis == AxisEnum.X and (self._hitbox.entity.x >= render.hitbox.entity.x)):
                     hitbox_collisions.append(HitboxCollision(render.hitbox, CollisionEnum.RIGHT))
-                elif (direction == DirectionEnum.UP):
-                    hitbox_collisions.append(HitboxCollision(render.hitbox, CollisionEnum.BOTTOM))
-                elif (direction == DirectionEnum.DOWN):
+                elif (axis == AxisEnum.Y and (self._hitbox.entity.y <= render.hitbox.entity.y)):
                     hitbox_collisions.append(HitboxCollision(render.hitbox, CollisionEnum.TOP))
+                elif (axis == AxisEnum.Y and (self._hitbox.entity.y >= render.hitbox.entity.y)):
+                    hitbox_collisions.append(HitboxCollision(render.hitbox, CollisionEnum.BOTTOM))
         
         return hitbox_collisions

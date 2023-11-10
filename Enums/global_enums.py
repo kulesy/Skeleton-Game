@@ -29,3 +29,7 @@ class ArmStateEnum(Enum):
     ATTACHED = 0
     DETACHED = 1
     STUCK = 2
+
+class AxisEnum(Enum):
+    X = 0
+    Y = 1
